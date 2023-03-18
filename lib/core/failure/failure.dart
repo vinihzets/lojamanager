@@ -1,6 +1,10 @@
-abstract class Failure {}
+abstract class Failure {
+  String message;
 
-class RemoteFailure {
+  Failure({required this.message});
+}
+
+class RemoteFailure implements Failure {
   String message;
 
   RemoteFailure({required this.message});

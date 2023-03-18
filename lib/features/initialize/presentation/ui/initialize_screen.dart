@@ -24,6 +24,8 @@ class _InitializeScreenState extends State<InitializeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
+    );
   }
 }

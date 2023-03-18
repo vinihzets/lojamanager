@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lojamanager/features/login/presentation/bloc/login_bloc.dart';
 
 class buildColumnWidgets extends StatelessWidget {
-  const buildColumnWidgets({super.key});
+  LoginBloc bloc;
+
+  buildColumnWidgets({required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +40,11 @@ class buildColumnWidgets extends StatelessWidget {
                 style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.grey)),
                 onPressed: () {},
-                child: Text('Faca Login'),
+                child: const Text('Faca Login'),
               )),
         ),
         TextButton(
-            onPressed: () {},
+            onPressed: () => bloc.onPressedNavigate(context),
             child: const Text(
               'Registre sua loja',
               style: TextStyle(color: Colors.grey),
