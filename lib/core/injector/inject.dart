@@ -1,6 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:lojamanager/core/services/auth/auth_service.dart';
 import 'package:lojamanager/core/services/database/database_service.dart';
+import 'package:lojamanager/features/home/data/datasources/home_datasources.dart';
+import 'package:lojamanager/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
+import 'package:lojamanager/features/home/data/repositories/home_repository_imp.dart';
+import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
+import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase_imp.dart';
+import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/initialize/presentation/bloc/initialize_bloc.dart';
 import 'package:lojamanager/features/login/data/datasources/login_datasources.dart';
 import 'package:lojamanager/features/login/data/datasources/remote/login_datasources_remote_imp.dart';
@@ -22,17 +29,22 @@ class Inject {
 
     getIt.registerLazySingleton<LoginDataSources>(
         () => LoginDataSourcesRemoteImp(getIt(), getIt()));
+    getIt.registerLazySingleton<HomeDataSources>(
+        () => HomeDataSourcesRemoteImp(getIt()));
     // repositories
 
     getIt.registerLazySingleton<LoginRepository>(
         () => LoginRepositoryImp(getIt()));
-
+    getIt.registerLazySingleton<HomeRepository>(
+        () => HomeRepositoryImp(getIt()));
     // usecases
 
     getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCaseImp(getIt()));
-
+    getIt.registerLazySingleton<SignOutUseCase>(
+        () => SignOutUseCaseImp(getIt()));
     // bloc
 
+    getIt.registerFactory(() => HomeBloc(getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }
