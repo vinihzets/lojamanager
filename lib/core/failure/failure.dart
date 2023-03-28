@@ -5,7 +5,9 @@ abstract class Failure {
 }
 
 class RemoteFailure implements Failure {
+  @override
   String message;
 
+  @override
   RemoteFailure({required this.message});
 }

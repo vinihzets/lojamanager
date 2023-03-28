@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/services/authservice/auth_service.dart';
+import 'package:lojamanager/core/archiceture/bloc_state.dart';
+import 'package:lojamanager/core/services/auth/auth_service.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/login/domain/usecases/sign_in_usecase.dart';
 import 'package:lojamanager/features/login/presentation/bloc/login_event.dart';
-import 'package:lojamanager/features/login/presentation/bloc/login_state.dart';
 import 'package:lojamanager/main.dart';
 
 class LoginBloc with HudMixins {
@@ -23,14 +23,14 @@ class LoginBloc with HudMixins {
   late StreamController<LoginEvent> _event;
   Sink<LoginEvent> get event => _event.sink;
 
-  late StreamController<LoginState> _state;
-  Stream<LoginState> get state => _state.stream;
+  late StreamController<BlocState> _state;
+  Stream<BlocState> get state => _state.stream;
 
   dispatchEvent(LoginEvent event) {
     _event.add(event);
   }
 
-  dispatchState(LoginState state) {
+  dispatchState(BlocState state) {
     _state.add(state);
   }
 

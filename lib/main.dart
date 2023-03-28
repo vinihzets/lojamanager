@@ -9,10 +9,10 @@ import 'core/utils/consts.dart';
 
 final gConsts = Consts();
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   Inject.initialize();
 

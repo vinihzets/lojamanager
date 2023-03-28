@@ -1,8 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:lojamanager/core/archiceture/bloc.dart';
-import 'package:lojamanager/core/services/authservice/auth_service.dart';
-import 'package:lojamanager/core/services/databaseservice/database_service.dart';
-import 'package:lojamanager/features/initialize/presentation/controllers/initialize_bloc.dart';
+import 'package:lojamanager/core/services/auth/auth_service.dart';
+import 'package:lojamanager/core/services/database/database_service.dart';
+import 'package:lojamanager/features/initialize/presentation/bloc/initialize_bloc.dart';
 import 'package:lojamanager/features/login/data/datasources/login_datasources.dart';
 import 'package:lojamanager/features/login/data/datasources/remote/login_datasources_remote_imp.dart';
 import 'package:lojamanager/features/login/data/repositories/login_repository_imp.dart';
@@ -17,10 +16,8 @@ class Inject {
 
     // core
 
-    getIt.registerLazySingleton<Bloc>(() => Bloc());
-    getIt.registerLazySingleton<AuthService>(() => AuthService());
-    getIt.registerLazySingleton<DatabaseService>(() => DatabaseService());
-
+    getIt.registerLazySingleton(() => AuthService());
+    getIt.registerLazySingleton(() => DatabaseService());
     // datasources
 
     getIt.registerLazySingleton<LoginDataSources>(
@@ -37,6 +34,6 @@ class Inject {
     // bloc
 
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
-    getIt.registerFactory<InitializeBloc>(() => InitializeBloc());
+    getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }
 }

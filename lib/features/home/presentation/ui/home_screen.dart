@@ -10,6 +10,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {},
+              child: Text(
+                'sair',
+                style: TextStyle(color: Colors.red),
+              )),
+        ],
+      ),
+    );
   }
 }
