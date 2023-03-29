@@ -8,7 +8,10 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(users.email),
+      title: Text(
+        users.email,
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 }

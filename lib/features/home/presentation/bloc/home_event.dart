@@ -15,3 +15,9 @@ class HomeEventGetUsers implements HomeEvent {
 
   HomeEventGetUsers(this.context);
 }
+
+class HomeEventGetOrders implements HomeEvent {
+  BuildContext context;
+
+  HomeEventGetOrders(this.context);
+}

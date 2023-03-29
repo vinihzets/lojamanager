@@ -20,12 +20,13 @@ class UsersTab extends StatefulWidget {
 class _UsersTabState extends State<UsersTab> {
   @override
   void initState() {
-    widget.bloc.event.add(HomeEventGetUsers(context));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.bloc.event.add(HomeEventGetUsers(context));
+
     return
 
         //  Column(
