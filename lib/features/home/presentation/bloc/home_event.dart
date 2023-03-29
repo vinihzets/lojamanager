@@ -9,3 +9,9 @@ class HomeEventNavigate implements HomeEvent {
 
   HomeEventNavigate(this.context, this.routeName);
 }
+
+class HomeEventGetUsers implements HomeEvent {
+  BuildContext context;
+
+  HomeEventGetUsers(this.context);
+}
