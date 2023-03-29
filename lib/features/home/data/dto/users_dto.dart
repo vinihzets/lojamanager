@@ -1,9 +1,9 @@
 import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
 
 class UsersDto extends UsersEntity {
-  UsersDto(super.email, super.docId, super.userId);
+  UsersDto(super.email);
 
   factory UsersDto.fromJson(Map map) {
-    return UsersDto(map['email'], map['docId'], map['userId']);
+    return UsersDto(map['email']);
   }
 }
