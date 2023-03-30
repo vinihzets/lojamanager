@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
+import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 
 abstract class HomeEvent {}
 
 class HomeEventNavigate implements HomeEvent {
   BuildContext context;
-
+  Object? args;
   String routeName;
 
   HomeEventNavigate(this.context, this.routeName);
@@ -48,4 +49,12 @@ class HomeEventGetCategoriesProducts implements HomeEvent {
   String id;
 
   HomeEventGetCategoriesProducts(this.context, this.id);
+}
+
+class HomeEventNavigateToProducts implements HomeEvent {
+  BuildContext context;
+  String routeName;
+  ProductsCategoriesEntity args;
+
+  HomeEventNavigateToProducts(this.context, this.routeName, this.args);
 }

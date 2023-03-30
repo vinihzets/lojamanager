@@ -7,6 +7,7 @@ import 'package:lojamanager/features/home/domain/entities/categories_entity.dart
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
+import 'package:lojamanager/main.dart';
 
 class ProductsTab extends StatelessWidget {
   HomeBloc bloc;
@@ -47,6 +48,13 @@ class ProductsTab extends StatelessWidget {
                                     return Column(
                                       children: listProducts
                                           .map((e) => ListTile(
+                                                onTap: () {
+                                                  bloc.event.add(
+                                                      HomeEventNavigateToProducts(
+                                                          context,
+                                                          gConsts.productScreen,
+                                                          e));
+                                                },
                                                 leading: CircleAvatar(
                                                   backgroundColor:
                                                       Colors.transparent,
@@ -84,7 +92,7 @@ class ProductsTab extends StatelessWidget {
           } else if (state is BlocEmptyState) {
             return Container();
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         });
   }

@@ -112,6 +112,8 @@ class HomeBloc with HudMixins {
       getCategories(event.context);
     } else if (event is HomeEventGetCategoriesProducts) {
       getCategoriesProducts(event.context, event.id);
+    } else if (event is HomeEventNavigateToProducts) {
+      navigateThenUntilArgs(event.context, event.routeName, event.args);
     }
   }
 

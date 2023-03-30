@@ -4,6 +4,7 @@ import 'package:lojamanager/core/injector/inject.dart';
 import 'package:lojamanager/features/home/presentation/ui/home_screen.dart';
 import 'package:lojamanager/features/initialize/presentation/ui/initialize_screen.dart';
 import 'package:lojamanager/features/login/presentation/ui/login_screen.dart';
+import 'package:lojamanager/features/products/presentation/ui/product_screen.dart';
 
 import 'core/utils/consts.dart';
 
@@ -20,5 +21,6 @@ void main() async {
     gConsts.initialScreen: (_) => const InitializeScreen(),
     gConsts.loginScreen: (_) => const LoginScreen(),
     gConsts.homeScreen: (_) => const HomeScreen(),
+    gConsts.productScreen: (_) => const ProductScreen(),
   }));
 }
