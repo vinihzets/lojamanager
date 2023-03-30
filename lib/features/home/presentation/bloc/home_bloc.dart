@@ -13,6 +13,11 @@ import 'package:lojamanager/features/home/domain/usecases/status_orders_usecase.
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/main.dart';
 
+enum SortCritery {
+  READY_FIRST,
+  READY_LAST,
+}
+
 class HomeBloc with HudMixins {
   SignOutUseCase signOutUseCase;
   GetUsersUseCase getUsersUseCase;
@@ -33,6 +38,10 @@ class HomeBloc with HudMixins {
 
   List<OrdersEntity> _cache = [];
 
+  late List states = [];
+
+  late SortCritery sortCritery;
+
   HomeBloc(this.signOutUseCase, this.getUsersUseCase, this.getOrdersUseCase,
       this.statusOrderUseCase) {
     _event = StreamController.broadcast();
@@ -42,6 +51,13 @@ class HomeBloc with HudMixins {
     _stateOrders = StreamController.broadcast();
 
     _event.stream.listen(_mapListenEvent);
+    states = [
+      '',
+      'Aguardando Pagamento',
+      'Pagamento aprovado',
+      'Enviado',
+      'Entregue',
+    ];
   }
 
   dispatchOrdersState(BlocState state) {
@@ -116,5 +132,43 @@ class HomeBloc with HudMixins {
     }, (r) {
       dispatchOrdersState(BlocStableState(_cache));
     });
+  }
+
+  criterySort(SortCritery critery) {
+    sortCritery = critery;
+    _sort();
+  }
+
+  void _sort() {
+    switch (sortCritery) {
+      case SortCritery.READY_FIRST:
+        _cache.sort((a, b) {
+          int sa = a.status;
+          int sb = b.status;
+
+          if (sa < sb)
+            return 1;
+          else if (sa > sb)
+            return -1;
+          else
+            return 0;
+        });
+        break;
+
+      case SortCritery.READY_LAST:
+        _cache.sort((a, b) {
+          int sa = a.status;
+          int sb = b.status;
+
+          if (sa > sb)
+            return 1;
+          else if (sa < sb)
+            return -1;
+          else
+            return 0;
+        });
+        break;
+    }
+    dispatchOrdersState(BlocStableState(_cache));
   }
 }

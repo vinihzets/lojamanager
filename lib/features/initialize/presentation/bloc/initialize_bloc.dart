@@ -46,12 +46,10 @@ class InitializeBloc with HudMixins {
   authenticated(BuildContext context) {
     final auth = authService.auth;
 
-    auth.authStateChanges().listen((User? user) {
-      if (user != null) {
-        _event.add(InitializeBlocEventNavigate(context, gConsts.homeScreen));
-      } else {
-        _event.add(InitializeBlocEventNavigate(context, gConsts.loginScreen));
-      }
-    });
+    if (auth.currentUser != null) {
+      _event.add(InitializeBlocEventNavigate(context, gConsts.homeScreen));
+    } else {
+      _event.add(InitializeBlocEventNavigate(context, gConsts.loginScreen));
+    }
   }
 }

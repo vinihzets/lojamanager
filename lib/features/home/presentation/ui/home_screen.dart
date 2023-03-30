@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
@@ -72,6 +73,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: buildFloating(),
     );
+  }
+
+  Widget buildFloating() {
+    switch (_page) {
+      case 0:
+        return Container();
+      case 1:
+        return SpeedDial(
+          backgroundColor: Colors.redAccent,
+          overlayOpacity: 0.4,
+          overlayColor: Colors.black,
+          children: [
+            SpeedDialChild(
+                child: const Icon(
+                  Icons.arrow_downward,
+                  color: Colors.redAccent,
+                ),
+                backgroundColor: Colors.white,
+                label: 'Concluidos abaixo',
+                onTap: () => bloc.criterySort(SortCritery.READY_LAST)),
+            SpeedDialChild(
+                child: const Icon(
+                  Icons.arrow_upward,
+                  color: Colors.redAccent,
+                ),
+                backgroundColor: Colors.white,
+                label: 'Concluidos acima',
+                onTap: () => bloc.criterySort(SortCritery.READY_FIRST))
+          ],
+          child: const Icon(Icons.sort),
+        );
+      case 2:
+        return FloatingActionButton(onPressed: () {});
+    }
+    return Container();
   }
 }

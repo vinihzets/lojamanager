@@ -32,7 +32,7 @@ class OrdersTab extends StatelessWidget {
                           child: Card(
                             child: ExpansionTile(
                               title: Text(
-                                '#${e.orderId}',
+                                '#${e.orderId} ${bloc.states[e.status]}',
                                 style: const TextStyle(color: Colors.green),
                               ),
                               children: [
