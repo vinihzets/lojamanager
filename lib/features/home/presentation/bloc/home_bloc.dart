@@ -104,13 +104,17 @@ class HomeBloc with HudMixins {
     final statusRequest = await statusOrderUseCase.statusDown(ordersDto);
     statusRequest.fold((l) {
       showSnack(context, l.message);
-    }, (r) {});
+    }, (r) {
+      dispatchOrdersState(BlocStableState(_cache));
+    });
   }
 
   incStatus(BuildContext context, OrdersDto ordersDto) async {
     final statusRequest = await statusOrderUseCase.statusUp(ordersDto);
     statusRequest.fold((l) {
       showSnack(context, l.message);
-    }, (r) {});
+    }, (r) {
+      dispatchOrdersState(BlocStableState(_cache));
+    });
   }
 }
