@@ -16,10 +16,7 @@ class OrdersDto extends OrdersEntity {
 
   toMap() {
     return {
-      'totalPrice': totalPrice,
       'status': status,
-      'orderId': orderId,
-      'user': user,
     };
   }
 }
