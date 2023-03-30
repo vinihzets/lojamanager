@@ -5,8 +5,10 @@ import 'package:lojamanager/core/failure/failure.dart';
 import 'package:lojamanager/core/services/auth/auth_service.dart';
 import 'package:lojamanager/core/services/database/database_service.dart';
 import 'package:lojamanager/features/home/data/datasources/home_datasources.dart';
+import 'package:lojamanager/features/home/data/dto/categories_dto.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
 import 'package:lojamanager/features/home/data/dto/users_dto.dart';
+import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
 
@@ -77,6 +79,19 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       return Right(dbRequest);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CategoriesEntity>>> getCategories() async {
+    try {
+      final dbRequest = await databaseService.db.collection('products').get();
+      final db =
+          dbRequest.docs.map((e) => CategoriesDto.fromJson(e.data())).toList();
+
+      return Right(db);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ' '));
     }
   }
 }

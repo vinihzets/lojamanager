@@ -6,6 +6,7 @@ import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
+import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_users_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase.dart';
@@ -23,6 +24,7 @@ class HomeBloc with HudMixins {
   GetUsersUseCase getUsersUseCase;
   GetOrdersUseCase getOrdersUseCase;
   StatusOrderUseCase statusOrderUseCase;
+  GetCategoriesUseCase getCategoriesUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -36,6 +38,12 @@ class HomeBloc with HudMixins {
   late StreamController<HomeEvent> _eventOrders;
   Sink<HomeEvent> get eventOrders => _eventOrders.sink;
 
+  late StreamController<BlocState> _stateProducts;
+  Stream<BlocState> get stateProducts => _stateProducts.stream;
+
+  late StreamController<HomeEvent> _eventProducts;
+  Sink<HomeEvent> get eventProducts => _eventProducts.sink;
+
   List<OrdersEntity> _cache = [];
 
   late List states = [];
@@ -43,12 +51,15 @@ class HomeBloc with HudMixins {
   late SortCritery sortCritery;
 
   HomeBloc(this.signOutUseCase, this.getUsersUseCase, this.getOrdersUseCase,
-      this.statusOrderUseCase) {
+      this.statusOrderUseCase, this.getCategoriesUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
     _eventOrders = StreamController.broadcast();
     _stateOrders = StreamController.broadcast();
+
+    _eventProducts = StreamController.broadcast();
+    _stateProducts = StreamController.broadcast();
 
     _event.stream.listen(_mapListenEvent);
     states = [
@@ -58,6 +69,10 @@ class HomeBloc with HudMixins {
       'Enviado',
       'Entregue',
     ];
+  }
+
+  dispatchProductsState(BlocState state) {
+    _stateProducts.add(state);
   }
 
   dispatchOrdersState(BlocState state) {
@@ -83,6 +98,8 @@ class HomeBloc with HudMixins {
       incStatus(event.context, event.ordersDto);
     } else if (event is HomeEventStatusDown) {
       decStatus(event.context, event.ordersDto);
+    } else if (event is HomeEventGetCategories) {
+      getCategories(event.context);
     }
   }
 
@@ -137,6 +154,15 @@ class HomeBloc with HudMixins {
   criterySort(SortCritery critery) {
     sortCritery = critery;
     _sort();
+  }
+
+  getCategories(BuildContext context) async {
+    final productsRequest = await getCategoriesUseCase.getCategories();
+    productsRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      dispatchProductsState(BlocStableState(r));
+    });
   }
 
   void _sort() {

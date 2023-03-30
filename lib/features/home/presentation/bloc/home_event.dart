@@ -36,3 +36,9 @@ class HomeEventStatusDown implements HomeEvent {
 
   HomeEventStatusDown(this.context, this.ordersDto);
 }
+
+class HomeEventGetCategories implements HomeEvent {
+  BuildContext context;
+
+  HomeEventGetCategories(this.context);
+}

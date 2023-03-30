@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/features/home/presentation/tabs/orders_tab.dart';
+import 'package:lojamanager/features/home/presentation/tabs/products_tab.dart';
 import 'package:lojamanager/features/home/presentation/tabs/users_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
             OrdersTab(
               bloc: bloc,
             ),
-            Container(
-              color: Colors.blue,
+            ProductsTab(
+              bloc: bloc,
             )
           ],
         ),
