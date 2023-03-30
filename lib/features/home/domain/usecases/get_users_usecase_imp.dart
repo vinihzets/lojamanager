@@ -9,6 +9,7 @@ class GetUsersUseCaseImp implements GetUsersUseCase {
 
   GetUsersUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, List<UsersEntity>>> getUsers() {
     return homeRepository.getUsers();
   }

@@ -49,4 +49,34 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       return Left(RemoteFailure(message: e.message ?? ' '));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> statusDown(OrdersDto ordersDto) async {
+    try {
+      ordersDto.status--;
+      final dbRequest = await databaseService.db
+          .collection('orders')
+          .doc(ordersDto.orderId)
+          .update(ordersDto.toMap());
+
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> statusUp(OrdersDto ordersDto) async {
+    try {
+      ordersDto.status++;
+      final dbRequest = await databaseService.db
+          .collection('orders')
+          .doc(ordersDto.orderId)
+          .update(ordersDto.toMap());
+
+      return Right(dbRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }

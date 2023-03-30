@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
       body: SafeArea(
         child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (p) {
             setState(() {
