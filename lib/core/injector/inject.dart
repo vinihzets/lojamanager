@@ -5,6 +5,8 @@ import 'package:lojamanager/features/home/data/datasources/home_datasources.dart
 import 'package:lojamanager/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import 'package:lojamanager/features/home/data/repositories/home_repository_imp.dart';
 import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
+import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
@@ -47,6 +49,9 @@ class Inject {
         () => HomeRepositoryImp(getIt()));
     // usecases
 
+    getIt.registerLazySingleton<GetCategoriesProductsUseCase>(
+        () => GetCategoriesProductsUseCaseImp(getIt()));
+
     getIt.registerLazySingleton<GetCategoriesUseCase>(
         () => GetCategoriesUseCaseImp(getIt()));
     getIt.registerLazySingleton<StatusOrderUseCase>(
@@ -63,7 +68,7 @@ class Inject {
     // bloc
 
     getIt.registerFactory(
-        () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
+        () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }

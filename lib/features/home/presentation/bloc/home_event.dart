@@ -42,3 +42,10 @@ class HomeEventGetCategories implements HomeEvent {
 
   HomeEventGetCategories(this.context);
 }
+
+class HomeEventGetCategoriesProducts implements HomeEvent {
+  BuildContext context;
+  String id;
+
+  HomeEventGetCategoriesProducts(this.context, this.id);
+}

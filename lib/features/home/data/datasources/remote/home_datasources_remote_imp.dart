@@ -7,9 +7,11 @@ import 'package:lojamanager/core/services/database/database_service.dart';
 import 'package:lojamanager/features/home/data/datasources/home_datasources.dart';
 import 'package:lojamanager/features/home/data/dto/categories_dto.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
+import 'package:lojamanager/features/home/data/dto/products_categories_dto.dart';
 import 'package:lojamanager/features/home/data/dto/users_dto.dart';
 import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
+import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
 
 class HomeDataSourcesRemoteImp implements HomeDataSources {
@@ -92,6 +94,25 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       return Right(db);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ' '));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProductsCategoriesEntity>>> getProductsCategories(
+      String id) async {
+    try {
+      final db = await databaseService.db
+          .collection('products')
+          .doc(id)
+          .collection('items')
+          .get();
+
+      final products =
+          db.docs.map((e) => ProductsCategoriesDto.fromJson(e.data())).toList();
+
+      return Right(products);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
 }

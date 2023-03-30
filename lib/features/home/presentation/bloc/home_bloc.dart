@@ -6,6 +6,8 @@ import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
+import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
+import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_users_usecase.dart';
@@ -25,6 +27,7 @@ class HomeBloc with HudMixins {
   GetOrdersUseCase getOrdersUseCase;
   StatusOrderUseCase statusOrderUseCase;
   GetCategoriesUseCase getCategoriesUseCase;
+  GetCategoriesProductsUseCase getCategoriesProductsUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -35,30 +38,33 @@ class HomeBloc with HudMixins {
   late StreamController<BlocState> _stateOrders;
   Stream<BlocState> get stateOrders => _stateOrders.stream;
 
-  late StreamController<HomeEvent> _eventOrders;
-  Sink<HomeEvent> get eventOrders => _eventOrders.sink;
+  late StreamController<BlocState> _stateCategories;
+  Stream<BlocState> get stateCategories => _stateCategories.stream;
 
   late StreamController<BlocState> _stateProducts;
   Stream<BlocState> get stateProducts => _stateProducts.stream;
 
-  late StreamController<HomeEvent> _eventProducts;
-  Sink<HomeEvent> get eventProducts => _eventProducts.sink;
-
   List<OrdersEntity> _cache = [];
+  List<ProductsCategoriesEntity> _cacheProducts = [];
 
   late List states = [];
 
   late SortCritery sortCritery;
 
-  HomeBloc(this.signOutUseCase, this.getUsersUseCase, this.getOrdersUseCase,
-      this.statusOrderUseCase, this.getCategoriesUseCase) {
+  HomeBloc(
+      this.signOutUseCase,
+      this.getUsersUseCase,
+      this.getOrdersUseCase,
+      this.statusOrderUseCase,
+      this.getCategoriesUseCase,
+      this.getCategoriesProductsUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
-    _eventOrders = StreamController.broadcast();
     _stateOrders = StreamController.broadcast();
 
-    _eventProducts = StreamController.broadcast();
+    _stateCategories = StreamController.broadcast();
+
     _stateProducts = StreamController.broadcast();
 
     _event.stream.listen(_mapListenEvent);
@@ -73,6 +79,10 @@ class HomeBloc with HudMixins {
 
   dispatchProductsState(BlocState state) {
     _stateProducts.add(state);
+  }
+
+  dispatchCategoriesState(BlocState state) {
+    _stateCategories.add(state);
   }
 
   dispatchOrdersState(BlocState state) {
@@ -100,6 +110,8 @@ class HomeBloc with HudMixins {
       decStatus(event.context, event.ordersDto);
     } else if (event is HomeEventGetCategories) {
       getCategories(event.context);
+    } else if (event is HomeEventGetCategoriesProducts) {
+      getCategoriesProducts(event.context, event.id);
     }
   }
 
@@ -161,7 +173,19 @@ class HomeBloc with HudMixins {
     productsRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      dispatchProductsState(BlocStableState(r));
+      dispatchCategoriesState(BlocStableState(r));
+    });
+  }
+
+  getCategoriesProducts(BuildContext context, String id) async {
+    final products =
+        await getCategoriesProductsUseCase.getCategoriesProducts(id);
+    products.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      _cacheProducts = r;
+
+      dispatchProductsState(BlocStableState(_cacheProducts));
     });
   }
 
