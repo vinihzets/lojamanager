@@ -26,6 +26,13 @@ import 'package:lojamanager/features/login/domain/repositories/login_repository.
 import 'package:lojamanager/features/login/domain/usecases/sign_in_usecase.dart';
 import 'package:lojamanager/features/login/domain/usecases/sign_in_usecase_imp.dart';
 import 'package:lojamanager/features/login/presentation/bloc/login_bloc.dart';
+import 'package:lojamanager/features/products/data/datasources/product_datasources.dart';
+import 'package:lojamanager/features/products/data/datasources/remote/product_datasources_remote_imp.dart';
+import 'package:lojamanager/features/products/data/repositories/product_repository_imp.dart';
+import 'package:lojamanager/features/products/domain/repositories/product_repository.dart';
+import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
+import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase_imp.dart';
+import 'package:lojamanager/features/products/presentation/bloc/product_bloc.dart';
 
 class Inject {
   static initialize() {
@@ -37,18 +44,28 @@ class Inject {
     getIt.registerLazySingleton(() => DatabaseService());
     // datasources
 
-    getIt.registerLazySingleton<LoginDataSources>(
-        () => LoginDataSourcesRemoteImp(getIt(), getIt()));
+    getIt.registerLazySingleton<ProductDataSources>(
+        () => ProductDataSourcesRemoteImp(getIt()));
+
     getIt.registerLazySingleton<HomeDataSources>(
         () => HomeDataSourcesRemoteImp(getIt(), getIt()));
+
+    getIt.registerLazySingleton<LoginDataSources>(
+        () => LoginDataSourcesRemoteImp(getIt(), getIt()));
     // repositories
+
+    getIt.registerLazySingleton<ProductRepository>(
+        () => ProductRepositoryImp(getIt()));
+
+    getIt.registerLazySingleton<HomeRepository>(
+        () => HomeRepositoryImp(getIt()));
 
     getIt.registerLazySingleton<LoginRepository>(
         () => LoginRepositoryImp(getIt()));
-    getIt.registerLazySingleton<HomeRepository>(
-        () => HomeRepositoryImp(getIt()));
     // usecases
 
+    getIt.registerLazySingleton<ProductModifyUseCase>(
+        () => ProductModifyUseCaseImp(getIt()));
     getIt.registerLazySingleton<GetCategoriesProductsUseCase>(
         () => GetCategoriesProductsUseCaseImp(getIt()));
 
@@ -67,6 +84,7 @@ class Inject {
         () => SignOutUseCaseImp(getIt()));
     // bloc
 
+    getIt.registerFactory(() => ProductBloc(getIt()));
     getIt.registerFactory(
         () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
