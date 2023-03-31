@@ -11,7 +11,7 @@ class ProductDataSourcesRemoteImp implements ProductDataSources {
 
   @override
   Future<Either<Failure, void>> productModify(String name, String description,
-      String price, String idCategories, String idProduct) async {
+      String price, String idCategories, String idProduct, List sizes) async {
     try {
       final db = databaseService.db
           .collection('products')
@@ -22,6 +22,7 @@ class ProductDataSourcesRemoteImp implements ProductDataSources {
         'name': name,
         'description': description,
         'price': price,
+        'sizes': sizes,
       });
 
       return Right(db);

@@ -5,10 +5,9 @@ import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_event.dart';
-import 'package:lojamanager/features/products/validator/product_validator.dart';
 import 'package:lojamanager/main.dart';
 
-class ProductBloc with HudMixins, ProductValidator {
+class ProductBloc with HudMixins {
   ProductModifyUseCase productModifyUseCase;
 
   late StreamController<BlocState> _state;
@@ -31,16 +30,16 @@ class ProductBloc with HudMixins, ProductValidator {
   _mapListenEvent(ProductEvent event) {
     if (event is ProductEventChanges) {
       saveChanges(event.context, event.name, event.description, event.price,
-          event.idCategories, event.idProduct);
+          event.idCategories, event.idProduct, event.sizes);
     } else if (event is ProductEventNavigate) {
       navigateRemoveUntil(event.context, event.routeName);
     }
   }
 
   saveChanges(BuildContext context, String name, String description,
-      String price, String idCategories, String idProduct) async {
+      String price, String idCategories, String idProduct, List sizes) async {
     final request = await productModifyUseCase.productModify(
-        name, description, price, idCategories, idProduct);
+        name, description, price, idCategories, idProduct, sizes);
     request.fold((l) {
       showSnack(context, l.message);
     }, (r) {

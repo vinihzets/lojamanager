@@ -9,8 +9,8 @@ class ProductRepositoryImp implements ProductRepository {
   ProductRepositoryImp(this.productDataSources);
 
   Future<Either<Failure, void>> productModify(String name, String description,
-      String price, String idCategories, String idProduct) {
+      String price, String idCategories, String idProduct, List sizes) {
     return productDataSources.productModify(
-        name, description, price, idCategories, idProduct);
+        name, description, price, idCategories, idProduct, sizes);
   }
 }
