@@ -38,8 +38,7 @@ class _ProductScreenState extends State<ProductScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                final key = _formKey.currentState?.validate();
-                inspect(key);
+                final key = _formKey.currentState!.validate();
                 if (key == true) {
                   bloc.event.add(ProductEventChanges(
                       context,
@@ -64,7 +63,10 @@ class _ProductScreenState extends State<ProductScreen> {
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             TextFormField(
-              validator: (v) => bloc.validateTitle(nameController.text),
+              validator: (v) {
+                if (v!.isEmpty) return 'Insira um titulo para o produto';
+                return null;
+              },
               controller: nameController,
               // initialValue: product.name ?? '',
               decoration: const InputDecoration(
@@ -73,8 +75,10 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
             TextFormField(
                 // initialValue: product.description ?? '',
-                validator: (v) =>
-                    bloc.validateDescription(descripController.text),
+                validator: (v) {
+                  if (v!.isEmpty) return 'Insira uma descricao';
+                  return null;
+                },
                 controller: descripController,
                 maxLines: 6,
                 decoration: const InputDecoration(
@@ -83,7 +87,10 @@ class _ProductScreenState extends State<ProductScreen> {
             TextFormField(
                 // initialValue: product.price ?? '',
                 controller: priceController,
-                validator: (v) => bloc.validatePrice(priceController.text),
+                validator: (v) {
+                  if (v!.isEmpty) return 'Insira um valor';
+                  return null;
+                },
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
