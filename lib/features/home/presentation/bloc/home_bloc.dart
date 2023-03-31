@@ -7,6 +7,7 @@ import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
+import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
@@ -28,6 +29,7 @@ class HomeBloc with HudMixins {
   StatusOrderUseCase statusOrderUseCase;
   GetCategoriesUseCase getCategoriesUseCase;
   GetCategoriesProductsUseCase getCategoriesProductsUseCase;
+  CategoriesChangesUseCase categoriesChangesUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -57,7 +59,8 @@ class HomeBloc with HudMixins {
       this.getOrdersUseCase,
       this.statusOrderUseCase,
       this.getCategoriesUseCase,
-      this.getCategoriesProductsUseCase) {
+      this.getCategoriesProductsUseCase,
+      this.categoriesChangesUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
@@ -98,7 +101,7 @@ class HomeBloc with HudMixins {
   }
 
   _mapListenEvent(HomeEvent event) {
-    if (event is HomeEventNavigate) {
+    if (event is HomeEventNavigateRemoveUntil) {
       navigateRemoveUntil(event.context, event.routeName);
     } else if (event is HomeEventGetUsers) {
       getUsers(event.context);
@@ -114,6 +117,10 @@ class HomeBloc with HudMixins {
       getCategoriesProducts(event.context, event.id);
     } else if (event is HomeEventNavigateToProducts) {
       navigateThenUntilArgs(event.context, event.routeName, event.args);
+    } else if (event is HomeEventNavigateThenUntil) {
+      navigateThenUntil(event.context, event.routeName);
+    } else if (event is HomeEventChangeCategories) {
+      categoriesChanges(event.context, event.name, event.id);
     }
   }
 
@@ -123,7 +130,7 @@ class HomeBloc with HudMixins {
     logoutRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      dispatchEvent(HomeEventNavigate(context, gConsts.loginScreen));
+      dispatchEvent(HomeEventNavigateRemoveUntil(context, gConsts.loginScreen));
     });
   }
 
@@ -188,6 +195,16 @@ class HomeBloc with HudMixins {
       _cacheProducts = r;
 
       dispatchProductsState(BlocStableState(_cacheProducts));
+    });
+  }
+
+  categoriesChanges(BuildContext context, String category, String id) async {
+    final changesRequest =
+        await categoriesChangesUseCase.categoriesChanges(category, id);
+    changesRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      navigateRemoveUntil(context, gConsts.homeScreen);
     });
   }
 

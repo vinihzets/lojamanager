@@ -15,4 +15,8 @@ abstract class HomeRepository {
   Future<Either<Failure, List<CategoriesEntity>>> getCategories();
   Future<Either<Failure, List<ProductsCategoriesEntity>>> getCategoriesProducts(
       String id);
+  Future<Either<Failure, void>> categoriesChanges(
+      // String image,
+      String category,
+      String id);
 }

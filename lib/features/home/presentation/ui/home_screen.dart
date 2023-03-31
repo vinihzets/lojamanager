@@ -6,6 +6,7 @@ import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/features/home/presentation/tabs/orders_tab.dart';
 import 'package:lojamanager/features/home/presentation/tabs/products_tab.dart';
 import 'package:lojamanager/features/home/presentation/tabs/users_tab.dart';
+import 'package:lojamanager/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -108,7 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Icon(Icons.sort),
         );
       case 2:
-        return FloatingActionButton(onPressed: () {});
+        return FloatingActionButton(
+            backgroundColor: Colors.redAccent,
+            child: Icon(Icons.add),
+            onPressed: () => bloc.event.add(HomeEventNavigateThenUntil(
+                context, gConsts.newCategoryScreen)));
     }
     return Container();
   }

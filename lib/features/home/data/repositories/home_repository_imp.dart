@@ -46,4 +46,15 @@ class HomeRepositoryImp implements HomeRepository {
       String id) {
     return homeDataSources.getProductsCategories(id);
   }
+
+  @override
+  Future<Either<Failure, void>> categoriesChanges(
+      // String image,
+      String category,
+      String id) {
+    return homeDataSources.categoriesChanges(
+        // image,
+        category,
+        id);
+  }
 }

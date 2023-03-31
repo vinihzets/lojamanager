@@ -4,12 +4,12 @@ import 'package:lojamanager/features/home/domain/entities/products_categories_en
 
 abstract class HomeEvent {}
 
-class HomeEventNavigate implements HomeEvent {
+class HomeEventNavigateRemoveUntil implements HomeEvent {
   BuildContext context;
   Object? args;
   String routeName;
 
-  HomeEventNavigate(this.context, this.routeName);
+  HomeEventNavigateRemoveUntil(this.context, this.routeName);
 }
 
 class HomeEventGetUsers implements HomeEvent {
@@ -57,4 +57,24 @@ class HomeEventNavigateToProducts implements HomeEvent {
   ProductsCategoriesEntity args;
 
   HomeEventNavigateToProducts(this.context, this.routeName, this.args);
+}
+
+class HomeEventNavigateThenUntil implements HomeEvent {
+  BuildContext context;
+  String routeName;
+
+  HomeEventNavigateThenUntil(this.context, this.routeName);
+}
+
+class HomeEventChangeCategories implements HomeEvent {
+  BuildContext context;
+  // String image;
+  String name;
+  String id;
+
+  HomeEventChangeCategories(
+      this.context,
+      //  this.image,
+      this.name,
+      this.id);
 }

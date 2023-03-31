@@ -15,4 +15,8 @@ abstract class HomeDataSources {
   Future<Either<Failure, List<CategoriesEntity>>> getCategories();
   Future<Either<Failure, List<ProductsCategoriesEntity>>> getProductsCategories(
       String id);
+  Future<Either<Failure, void>> categoriesChanges(
+      // String image,
+      String category,
+      String id);
 }
