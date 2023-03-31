@@ -15,7 +15,8 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  bool showTextField = false;
+  bool showTextFieldSizes = false;
+  bool showTextFieldImages = false;
   final _formKey = GlobalKey<FormState>();
   late ProductBloc bloc;
 
@@ -40,7 +41,6 @@ class _ProductScreenState extends State<ProductScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                inspect(product.sizes);
                 final key = _formKey.currentState!.validate();
                 if (key == true) {
                   bloc.event.add(ProductEventChanges(
@@ -50,7 +50,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       priceController.text,
                       product.idCategory,
                       product.id,
-                      product.sizes));
+                      product.sizes,
+                      product.images));
                 }
               },
               icon: const Icon(Icons.save)),
@@ -66,10 +67,69 @@ class _ProductScreenState extends State<ProductScreen> {
               'Images',
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
-            ImagesWidget(
-                context: context,
-                validator: (v) {},
-                initialValue: product.images),
+            SizedBox(
+              height: 6,
+            ),
+            SizedBox(
+                height: 50,
+                child: GridView(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisSpacing: 8.0,
+                            childAspectRatio: 0.5),
+                    scrollDirection: Axis.horizontal,
+                    children: product.images
+                        .map((e) => GestureDetector(
+                              onLongPress: () {
+                                product.images.remove(e);
+                                setState(() {});
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.white, width: 3.0),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
+                                alignment: Alignment.center,
+                                child: CircleAvatar(
+                                  backgroundImage: NetworkImage(e),
+                                ),
+                              ),
+                            ))
+                        .toList()
+                      ..add(GestureDetector(
+                          child: showTextFieldImages == false
+                              ? ElevatedButton(
+                                  style: const ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Colors.white)),
+                                  onPressed: () {
+                                    setState(() {
+                                      showTextFieldImages = true;
+                                    });
+                                  },
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.black,
+                                  ))
+                              : TextField(
+                                  onSubmitted: (value) {
+                                    product.images.add(value);
+                                    setState(() {
+                                      showTextFieldSizes = false;
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                      labelText: 'Url da Imagem',
+                                      labelStyle:
+                                          TextStyle(color: Colors.white))))))),
+            // ImagesWidget(
+            //     context: context,
+            //     validator: (v) {},
+            //     initialValue: product.images),
             TextFormField(
               validator: (v) {
                 if (v!.isEmpty) return 'Insira um titulo para o produto';
@@ -96,7 +156,13 @@ class _ProductScreenState extends State<ProductScreen> {
                 // initialValue: product.price ?? '',
                 controller: priceController,
                 validator: (v) {
-                  if (v!.isEmpty) return 'Insira um valor';
+                  if (v != null) {
+                    if (!v.contains(".") || v.split('.')[1].length != 2) {
+                      return 'Utilize duas casas decimais';
+                    }
+                  } else {
+                    return 'Preco invalido';
+                  }
                   return null;
                 },
                 keyboardType:
@@ -104,6 +170,9 @@ class _ProductScreenState extends State<ProductScreen> {
                 decoration: const InputDecoration(
                     hintText: 'Preco',
                     hintStyle: TextStyle(color: Colors.white))),
+            const SizedBox(
+              height: 12,
+            ),
             SizedBox(
                 height: 34,
                 child: GridView(
@@ -133,14 +202,14 @@ class _ProductScreenState extends State<ProductScreen> {
                             ))
                         .toList()
                       ..add(GestureDetector(
-                          child: showTextField == false
+                          child: showTextFieldSizes == false
                               ? ElevatedButton(
                                   style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
                                           Colors.white)),
                                   onPressed: () {
                                     setState(() {
-                                      showTextField = true;
+                                      showTextFieldSizes = true;
                                     });
                                   },
                                   child: const Icon(
@@ -151,10 +220,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                   onSubmitted: (value) {
                                     product.sizes.add(value);
                                     setState(() {
-                                      showTextField = false;
+                                      showTextFieldSizes = false;
                                     });
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       labelText: 'Tamanho',
                                       labelStyle:
                                           TextStyle(color: Colors.white))))))),

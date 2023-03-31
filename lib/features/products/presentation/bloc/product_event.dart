@@ -10,9 +10,10 @@ class ProductEventChanges implements ProductEvent {
   String idCategories;
   String idProduct;
   List sizes;
+  List images;
 
   ProductEventChanges(this.context, this.name, this.description, this.price,
-      this.idCategories, this.idProduct, this.sizes);
+      this.idCategories, this.idProduct, this.sizes, this.images);
 }
 
 class ProductEventNavigate implements ProductEvent {

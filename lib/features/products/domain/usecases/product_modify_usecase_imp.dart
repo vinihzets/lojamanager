@@ -8,9 +8,23 @@ class ProductModifyUseCaseImp implements ProductModifyUseCase {
 
   ProductModifyUseCaseImp(this.productRepository);
 
-  Future<Either<Failure, void>> productModify(String name, String description,
-      String price, String idCategories, String idProduct, List sizes) {
+  Future<Either<Failure, void>> productModify(
+    String name,
+    String description,
+    String price,
+    String idCategories,
+    String idProduct,
+    List sizes,
+    List images,
+  ) {
     return productRepository.productModify(
-        name, description, price, idCategories, idProduct, sizes);
+      name,
+      description,
+      price,
+      idCategories,
+      idProduct,
+      sizes,
+      images,
+    );
   }
 }
