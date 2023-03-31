@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojamanager/core/archiceture/bloc_builder.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_bloc.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_event.dart';
@@ -38,13 +37,19 @@ class _ProductScreenState extends State<ProductScreen> {
         backgroundColor: Colors.redAccent,
         actions: [
           IconButton(
-              onPressed: () => bloc.event.add(ProductEventChanges(
-                  context,
-                  nameController.text,
-                  descripController.text,
-                  priceController.text,
-                  product.idCategory,
-                  product.id)),
+              onPressed: () {
+                final key = _formKey.currentState?.validate();
+                inspect(key);
+                if (key == true) {
+                  bloc.event.add(ProductEventChanges(
+                      context,
+                      nameController.text,
+                      descripController.text,
+                      priceController.text,
+                      product.idCategory,
+                      product.id));
+                }
+              },
               icon: const Icon(Icons.save)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
         ],
@@ -54,16 +59,22 @@ class _ProductScreenState extends State<ProductScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            const Text(
+              'Images',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
             TextFormField(
+              validator: (v) => bloc.validateTitle(nameController.text),
               controller: nameController,
-              // initialValue: product.name,
+              // initialValue: product.name ?? '',
               decoration: const InputDecoration(
                   hintText: 'Titulo',
                   hintStyle: TextStyle(color: Colors.white)),
             ),
             TextFormField(
-                // initialValue: product.description,
-
+                // initialValue: product.description ?? '',
+                validator: (v) =>
+                    bloc.validateDescription(descripController.text),
                 controller: descripController,
                 maxLines: 6,
                 decoration: const InputDecoration(
@@ -72,9 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
             TextFormField(
                 // initialValue: product.price ?? '',
                 controller: priceController,
-                validator: (value) {
-                  if (value != null) {}
-                },
+                validator: (v) => bloc.validatePrice(priceController.text),
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(

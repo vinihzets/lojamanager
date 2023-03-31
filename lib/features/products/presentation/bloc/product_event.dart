@@ -13,3 +13,10 @@ class ProductEventChanges implements ProductEvent {
   ProductEventChanges(this.context, this.name, this.description, this.price,
       this.idCategories, this.idProduct);
 }
+
+class ProductEventNavigate implements ProductEvent {
+  BuildContext context;
+  String routeName;
+
+  ProductEventNavigate(this.context, this.routeName);
+}

@@ -5,8 +5,10 @@ import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_event.dart';
+import 'package:lojamanager/features/products/validator/product_validator.dart';
+import 'package:lojamanager/main.dart';
 
-class ProductBloc with HudMixins {
+class ProductBloc with HudMixins, ProductValidator {
   ProductModifyUseCase productModifyUseCase;
 
   late StreamController<BlocState> _state;
@@ -22,10 +24,16 @@ class ProductBloc with HudMixins {
     _event.stream.listen(_mapListenEvent);
   }
 
+  dispatchEvent(ProductEvent event) {
+    _event.add(event);
+  }
+
   _mapListenEvent(ProductEvent event) {
     if (event is ProductEventChanges) {
       saveChanges(event.context, event.name, event.description, event.price,
           event.idCategories, event.idProduct);
+    } else if (event is ProductEventNavigate) {
+      navigateRemoveUntil(event.context, event.routeName);
     }
   }
 
@@ -37,6 +45,7 @@ class ProductBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       r;
+      dispatchEvent(ProductEventNavigate(context, gConsts.homeScreen));
     });
   }
 }
