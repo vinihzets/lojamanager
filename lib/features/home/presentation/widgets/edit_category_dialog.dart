@@ -38,8 +38,6 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      setState(() {});
-
                       widget.bloc.event.add(HomeEventChangeCategories(context,
                           categoryController.text, widget.categories.id));
                     },

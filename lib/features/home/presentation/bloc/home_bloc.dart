@@ -215,12 +215,13 @@ class HomeBloc with HudMixins {
           int sa = a.status;
           int sb = b.status;
 
-          if (sa < sb)
+          if (sa < sb) {
             return 1;
-          else if (sa > sb)
+          } else if (sa > sb) {
             return -1;
-          else
+          } else {
             return 0;
+          }
         });
         break;
 
@@ -229,12 +230,13 @@ class HomeBloc with HudMixins {
           int sa = a.status;
           int sb = b.status;
 
-          if (sa > sb)
+          if (sa > sb) {
             return 1;
-          else if (sa < sb)
+          } else if (sa < sb) {
             return -1;
-          else
+          } else {
             return 0;
+          }
         });
         break;
     }
