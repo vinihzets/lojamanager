@@ -24,6 +24,7 @@ class ProductsTab extends StatelessWidget {
             List<CategoriesEntity> list = state.data;
 
             return ListView(
+              shrinkWrap: true,
               children: list
                   .map((e) => GestureDetector(
                         child: Card(
