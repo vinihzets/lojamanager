@@ -8,6 +8,8 @@ import 'package:lojamanager/features/home/presentation/tabs/products_tab.dart';
 import 'package:lojamanager/features/home/presentation/tabs/users_tab.dart';
 import 'package:lojamanager/main.dart';
 
+import '../widgets/new_category_dialog.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -112,8 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
         return FloatingActionButton(
             backgroundColor: Colors.redAccent,
             child: const Icon(Icons.add),
-            onPressed: () => bloc.event.add(HomeEventNavigateThenUntil(
-                context, gConsts.newCategoryScreen)));
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => NewCategoryDialog(
+                        bloc: bloc,
+                      ));
+            });
     }
     return Container();
   }

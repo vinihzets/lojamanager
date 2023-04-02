@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
@@ -9,43 +11,64 @@ class NewCategoryDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     final imagemUrlController = TextEditingController();
     final categoryController = TextEditingController();
 
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Row(
-            children: [
-              const Text('Imagem URL:'),
-              SizedBox(
-                width: 200,
-                child: TextField(
-                  controller: imagemUrlController,
+    return Form(
+      key: formKey,
+      child: Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Row(
+              children: [
+                const Text('Imagem URL:'),
+                SizedBox(
+                  width: 200,
+                  child: TextFormField(
+                    validator: (v) {
+                      if (v!.isEmpty) {
+                        return 'Insira o Url da Imagem';
+                      }
+                      return null;
+                    },
+                    controller: imagemUrlController,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('Categoria: '),
-              SizedBox(
-                width: 200,
-                child: TextField(
-                  controller: categoryController,
-                ),
-              )
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () => bloc.event.add(HomeEventCreateNewCategory(
-                context, imagemUrlController.text, categoryController.text)),
-            style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
-            child: const Text('Criar'),
-          )
-        ]),
+              ],
+            ),
+            Row(
+              children: [
+                const Text('Categoria: '),
+                SizedBox(
+                  width: 200,
+                  child: TextFormField(
+                    validator: (v) {
+                      if (v!.isEmpty) {
+                        return 'Insira a categoria de Produtos';
+                      }
+                      return null;
+                    },
+                    controller: categoryController,
+                  ),
+                )
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final validate = formKey.currentState!.validate();
+                if (validate == true) {
+                  bloc.event.add(HomeEventCreateNewCategory(context,
+                      imagemUrlController.text, categoryController.text));
+                }
+              },
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.redAccent)),
+              child: const Text('Criar'),
+            )
+          ]),
+        ),
       ),
     );
   }
