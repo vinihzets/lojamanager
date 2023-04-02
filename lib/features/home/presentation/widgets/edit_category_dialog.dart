@@ -17,7 +17,7 @@ class EditCategoryDialog extends StatefulWidget {
 class _EditCategoryDialogState extends State<EditCategoryDialog> {
   @override
   Widget build(BuildContext context) {
-    final urlController = TextEditingController();
+    // final urlController = TextEditingController();
     final categoryController = TextEditingController();
 
     return Column(
@@ -34,7 +34,7 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                   ),
                   title: TextField(
                     controller: categoryController,
-                    decoration: InputDecoration(hintText: 'Categoria'),
+                    decoration: const InputDecoration(hintText: 'Categoria'),
                   ),
                 ),
                 ElevatedButton(
@@ -42,7 +42,7 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                       widget.bloc.event.add(HomeEventChangeCategories(context,
                           categoryController.text, widget.categories.id));
                     },
-                    child: Text('Concluir'))
+                    child: const Text('Concluir'))
               ]),
             ),
           ),

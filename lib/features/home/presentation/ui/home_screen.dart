@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 2:
         return FloatingActionButton(
             backgroundColor: Colors.redAccent,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             onPressed: () => bloc.event.add(HomeEventNavigateThenUntil(
                 context, gConsts.newCategoryScreen)));
     }

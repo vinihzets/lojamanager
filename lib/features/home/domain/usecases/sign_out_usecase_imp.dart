@@ -8,6 +8,7 @@ class SignOutUseCaseImp implements SignOutUseCase {
 
   SignOutUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, void>> signOut() {
     return homeRepository.signOut();
   }

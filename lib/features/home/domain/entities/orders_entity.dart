@@ -1,5 +1,4 @@
 import 'package:lojamanager/features/home/data/dto/products_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/products_entity.dart';
 
 class OrdersEntity {
   num totalPrice;

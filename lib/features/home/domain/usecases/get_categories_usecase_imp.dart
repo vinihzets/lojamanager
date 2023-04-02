@@ -9,6 +9,7 @@ class GetCategoriesUseCaseImp implements GetCategoriesUseCase {
 
   GetCategoriesUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, List<CategoriesEntity>>> getCategories() {
     return homeRepository.getCategories();
   }

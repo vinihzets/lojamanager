@@ -19,4 +19,6 @@ abstract class HomeRepository {
       // String image,
       String category,
       String id);
+  Future<Either<Failure, dynamic>> createNewCategory(
+      String icon, String category);
 }

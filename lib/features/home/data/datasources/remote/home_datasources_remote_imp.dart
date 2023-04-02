@@ -20,6 +20,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
 
   HomeDataSourcesRemoteImp(this.authService, this.databaseService);
 
+  @override
   Future<Either<Failure, void>> signOut() async {
     try {
       final signOutRequest = await authService.auth.signOut();
@@ -29,6 +30,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
     }
   }
 
+  @override
   Future<Either<Failure, List<UsersEntity>>> getUsers() async {
     try {
       final dbRequest = await databaseService.db.collection('users').get();
@@ -41,6 +43,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
     }
   }
 
+  @override
   Future<Either<Failure, List<OrdersEntity>>> getOrders() async {
     try {
       final dbRequest = await databaseService.db.collection('orders').get();
@@ -123,12 +126,32 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       String id) async {
     try {
       final db = databaseService.db.collection('products').doc(id);
-      inspect(db);
       final requestVoid = db.update({
         'name': category,
       });
 
       return Right(requestVoid);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> createNewCategory(
+      String icon, String category) async {
+    try {
+      final db = databaseService.db.collection('products');
+      final dbAdd = await db.add({
+        'icon': icon,
+        'name': category,
+      }).then((value) {
+        databaseService.db
+            .collection('products')
+            .doc(value.id)
+            .update({'id': value.id});
+      });
+
+      return Right(dbAdd);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));
     }

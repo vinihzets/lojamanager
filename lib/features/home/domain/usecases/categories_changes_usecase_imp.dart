@@ -8,6 +8,7 @@ class CategoriesChangesUseCaseImp implements CategoriesChangesUseCase {
 
   CategoriesChangesUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, void>> categoriesChanges(
       // String image,
       String category,

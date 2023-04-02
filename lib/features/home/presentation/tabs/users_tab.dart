@@ -53,14 +53,14 @@ class _UsersTabState extends State<UsersTab> {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Divider();
+                    return const Divider();
                   },
                   itemCount: 1,
                 );
               } else if (state is BlocEmptyState) {
                 return Container();
               } else {
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }
             });
     // ],

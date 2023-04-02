@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojamanager/core/archiceture/bloc_builder.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
@@ -8,11 +6,12 @@ import 'package:lojamanager/features/home/domain/entities/products_categories_en
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/features/home/presentation/widgets/edit_category_dialog.dart';
+import 'package:lojamanager/features/home/presentation/widgets/new_category_dialog.dart';
 import 'package:lojamanager/main.dart';
 
 class ProductsTab extends StatelessWidget {
-  HomeBloc bloc;
-  ProductsTab({required this.bloc, super.key});
+  final HomeBloc bloc;
+  const ProductsTab({required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +114,14 @@ class ProductsTab extends StatelessWidget {
                           style: ButtonStyle(
                               backgroundColor:
                                   MaterialStatePropertyAll(Colors.grey[850])),
-                          onPressed: () {},
-                          child: Icon(Icons.add))
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => NewCategoryDialog(
+                                      bloc: bloc,
+                                    ));
+                          },
+                          child: const Icon(Icons.add))
                     ],
                   ),
                 )),

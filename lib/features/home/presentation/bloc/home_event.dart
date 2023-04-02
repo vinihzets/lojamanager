@@ -78,3 +78,11 @@ class HomeEventChangeCategories implements HomeEvent {
       this.name,
       this.id);
 }
+
+class HomeEventCreateNewCategory implements HomeEvent {
+  BuildContext context;
+  String image;
+  String category;
+
+  HomeEventCreateNewCategory(this.context, this.image, this.category);
+}

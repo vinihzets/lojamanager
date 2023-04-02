@@ -13,10 +13,12 @@ class HomeRepositoryImp implements HomeRepository {
 
   HomeRepositoryImp(this.homeDataSources);
 
+  @override
   Future<Either<Failure, void>> signOut() {
     return homeDataSources.signOut();
   }
 
+  @override
   Future<Either<Failure, List<UsersEntity>>> getUsers() {
     return homeDataSources.getUsers();
   }
@@ -56,5 +58,11 @@ class HomeRepositoryImp implements HomeRepository {
         // image,
         category,
         id);
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> createNewCategory(
+      String icon, String category) {
+    return homeDataSources.createNewCategory(icon, category);
   }
 }

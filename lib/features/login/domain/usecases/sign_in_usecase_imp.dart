@@ -10,6 +10,7 @@ class SignInUseCaseImp implements SignInUseCase {
 
   SignInUseCaseImp(this.loginRepository);
 
+  @override
   Future<Either<Failure, UserCredential>> signIn(
       String email, String password) {
     return loginRepository.signIn(email, password);

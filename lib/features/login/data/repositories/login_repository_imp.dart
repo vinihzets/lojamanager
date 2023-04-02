@@ -10,6 +10,7 @@ class LoginRepositoryImp implements LoginRepository {
 
   LoginRepositoryImp(this.loginDataSources);
 
+  @override
   Future<Either<Failure, UserCredential>> signIn(
       String email, String password) {
     return loginDataSources.signIn(email, password);

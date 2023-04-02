@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/services/auth/auth_service.dart';

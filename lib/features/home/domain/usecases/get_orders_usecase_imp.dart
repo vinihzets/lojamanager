@@ -9,6 +9,7 @@ class GetOrdersUseCaseImp implements GetOrdersUseCase {
 
   GetOrdersUseCaseImp(this.repository);
 
+  @override
   Future<Either<Failure, List<OrdersEntity>>> getOrders() {
     return repository.getOrders();
   }

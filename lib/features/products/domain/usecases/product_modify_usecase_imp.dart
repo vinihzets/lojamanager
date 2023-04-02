@@ -8,6 +8,7 @@ class ProductModifyUseCaseImp implements ProductModifyUseCase {
 
   ProductModifyUseCaseImp(this.productRepository);
 
+  @override
   Future<Either<Failure, void>> productModify(
     String name,
     String description,

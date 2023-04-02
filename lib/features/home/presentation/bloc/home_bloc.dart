@@ -6,6 +6,7 @@ import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/create_new_category_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
@@ -28,6 +29,7 @@ class HomeBloc with HudMixins {
   GetCategoriesUseCase getCategoriesUseCase;
   GetCategoriesProductsUseCase getCategoriesProductsUseCase;
   CategoriesChangesUseCase categoriesChangesUseCase;
+  CreateNewCategoryUseCase createNewCategoryUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -58,7 +60,8 @@ class HomeBloc with HudMixins {
       this.statusOrderUseCase,
       this.getCategoriesUseCase,
       this.getCategoriesProductsUseCase,
-      this.categoriesChangesUseCase) {
+      this.categoriesChangesUseCase,
+      this.createNewCategoryUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
@@ -119,6 +122,8 @@ class HomeBloc with HudMixins {
       navigateThenUntil(event.context, event.routeName);
     } else if (event is HomeEventChangeCategories) {
       categoriesChanges(event.context, event.name, event.id);
+    } else if (event is HomeEventCreateNewCategory) {
+      createNewCategory(event.context, event.image, event.category);
     }
   }
 
@@ -239,5 +244,15 @@ class HomeBloc with HudMixins {
         break;
     }
     dispatchOrdersState(BlocStableState(_cache));
+  }
+
+  createNewCategory(BuildContext context, String icon, String category) async {
+    final createCategoryRequest =
+        await createNewCategoryUseCase.createNewCategory(icon, category);
+    createCategoryRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      navigateRemoveUntil(context, gConsts.homeScreen);
+    });
   }
 }

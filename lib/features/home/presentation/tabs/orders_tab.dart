@@ -1,18 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojamanager/core/archiceture/bloc_builder.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/features/home/presentation/widgets/order_tile.dart';
 
 class OrdersTab extends StatelessWidget {
-  HomeBloc bloc;
+  final HomeBloc bloc;
 
-  OrdersTab({required this.bloc, super.key});
+  const OrdersTab({required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {

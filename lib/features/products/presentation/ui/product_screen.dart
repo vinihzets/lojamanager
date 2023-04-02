@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_bloc.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_event.dart';
-import 'package:lojamanager/features/products/presentation/widgets/images_widget.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -67,7 +64,7 @@ class _ProductScreenState extends State<ProductScreen> {
               'Images',
               style: TextStyle(fontSize: 16, color: Colors.white),
             ),
-            SizedBox(
+            const SizedBox(
               height: 6,
             ),
             SizedBox(
