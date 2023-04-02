@@ -4,10 +4,11 @@ import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 
 class EditCategoryDialog extends StatefulWidget {
-  CategoriesEntity categories;
-  HomeBloc bloc;
+  final CategoriesEntity categories;
+  final HomeBloc bloc;
 
-  EditCategoryDialog({required this.categories, required this.bloc, super.key});
+  const EditCategoryDialog(
+      {required this.categories, required this.bloc, super.key});
 
   @override
   State<EditCategoryDialog> createState() => _EditCategoryDialogState();

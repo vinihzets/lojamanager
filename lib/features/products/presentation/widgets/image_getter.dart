@@ -18,7 +18,7 @@ class ImageGetter extends StatelessWidget {
                   onPressed: () async {
                     await pick.pickImage(source: ImageSource.gallery);
                   },
-                  child: Text('Galeria')),
+                  child: const Text('Galeria')),
               ElevatedButton(
                   style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
@@ -26,7 +26,7 @@ class ImageGetter extends StatelessWidget {
                   onPressed: () async {
                     await pick.pickImage(source: ImageSource.camera);
                   },
-                  child: Text('Camera')),
+                  child: const Text('Camera')),
             ],
           );
         });

@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[850],
       body: Center(
-        child: buildColumnWidgets(
+        child: BuildColumnWidgets(
           bloc: bloc,
         ),
       ),

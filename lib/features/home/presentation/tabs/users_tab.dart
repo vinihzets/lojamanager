@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:lojamanager/core/archiceture/bloc_builder.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
@@ -9,9 +7,9 @@ import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import 'package:lojamanager/features/home/presentation/widgets/user_tile.dart';
 
 class UsersTab extends StatefulWidget {
-  HomeBloc bloc;
+  final HomeBloc bloc;
 
-  UsersTab({required this.bloc, super.key});
+  const UsersTab({required this.bloc, super.key});
 
   @override
   State<UsersTab> createState() => _UsersTabState();

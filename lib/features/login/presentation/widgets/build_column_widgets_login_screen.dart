@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lojamanager/features/login/presentation/bloc/login_bloc.dart';
 import 'package:lojamanager/features/login/presentation/bloc/login_event.dart';
 
-class buildColumnWidgets extends StatelessWidget {
+class BuildColumnWidgets extends StatelessWidget {
   final LoginBloc bloc;
 
-  const buildColumnWidgets({required this.bloc, super.key});
+  const BuildColumnWidgets({required this.bloc, super.key});
 
   @override
   Widget build(BuildContext context) {
