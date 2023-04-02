@@ -65,4 +65,9 @@ class HomeRepositoryImp implements HomeRepository {
       String icon, String category) {
     return homeDataSources.createNewCategory(icon, category);
   }
+
+  @override
+  Future<Either<Failure, void>> removeCategory(String id) {
+    return homeDataSources.removeCategory(id);
+  }
 }

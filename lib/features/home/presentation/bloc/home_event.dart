@@ -86,3 +86,10 @@ class HomeEventCreateNewCategory implements HomeEvent {
 
   HomeEventCreateNewCategory(this.context, this.image, this.category);
 }
+
+class HomeEventRemoveCategory implements HomeEvent {
+  BuildContext context;
+  String id;
+
+  HomeEventRemoveCategory(this.context, this.id);
+}

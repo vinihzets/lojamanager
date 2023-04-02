@@ -11,6 +11,7 @@ import 'package:lojamanager/features/home/domain/usecases/get_categories_product
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_users_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/remove_category_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/status_orders_usecase.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
@@ -30,6 +31,7 @@ class HomeBloc with HudMixins {
   GetCategoriesProductsUseCase getCategoriesProductsUseCase;
   CategoriesChangesUseCase categoriesChangesUseCase;
   CreateNewCategoryUseCase createNewCategoryUseCase;
+  RemoveCategoryUseCase removeCategoryUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -61,7 +63,8 @@ class HomeBloc with HudMixins {
       this.getCategoriesUseCase,
       this.getCategoriesProductsUseCase,
       this.categoriesChangesUseCase,
-      this.createNewCategoryUseCase) {
+      this.createNewCategoryUseCase,
+      this.removeCategoryUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
@@ -124,6 +127,8 @@ class HomeBloc with HudMixins {
       categoriesChanges(event.context, event.name, event.id);
     } else if (event is HomeEventCreateNewCategory) {
       createNewCategory(event.context, event.image, event.category);
+    } else if (event is HomeEventRemoveCategory) {
+      removeCategory(event.context, event.id);
     }
   }
 
@@ -253,6 +258,15 @@ class HomeBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       navigateRemoveUntil(context, gConsts.homeScreen);
+    });
+  }
+
+  removeCategory(BuildContext context, String id) async {
+    final removeRequest = await removeCategoryUseCase.removeCategory(id);
+    removeRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      dispatchEvent(HomeEventNavigateRemoveUntil(context, gConsts.homeScreen));
     });
   }
 }

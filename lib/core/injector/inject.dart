@@ -17,6 +17,8 @@ import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dar
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_users_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_users_usecase_imp.dart';
+import 'package:lojamanager/features/home/domain/usecases/remove_category_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/remove_category_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/status_orders_usecase.dart';
@@ -68,6 +70,8 @@ class Inject {
         () => LoginRepositoryImp(getIt()));
     // usecases
 
+    getIt.registerLazySingleton<RemoveCategoryUseCase>(
+        () => RemoveCategoryUseCaseImp(getIt()));
     getIt.registerLazySingleton<CreateNewCategoryUseCase>(
         () => CreateNewCategoryUseCaseImp(getIt()));
     getIt.registerLazySingleton<CategoriesChangesUseCase>(
@@ -94,7 +98,7 @@ class Inject {
 
     getIt.registerFactory(() => ProductBloc(getIt()));
     getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt(), getIt(),
-        getIt(), getIt(), getIt(), getIt()));
+        getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }

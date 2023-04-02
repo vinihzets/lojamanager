@@ -37,12 +37,31 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                     decoration: const InputDecoration(hintText: 'Categoria'),
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      widget.bloc.event.add(HomeEventChangeCategories(context,
-                          categoryController.text, widget.categories.id));
-                    },
-                    child: const Text('Concluir'))
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(Colors.redAccent)),
+                        onPressed: () {
+                          widget.bloc.event.add(HomeEventRemoveCategory(
+                              context, widget.categories.id));
+                        },
+                        child: const Text('Remover')),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          widget.bloc.event.add(HomeEventChangeCategories(
+                              context,
+                              categoryController.text,
+                              widget.categories.id));
+                        },
+                        child: const Text('Concluir'))
+                  ],
+                )
               ]),
             ),
           ),
