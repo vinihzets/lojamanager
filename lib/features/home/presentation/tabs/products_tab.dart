@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:lojamanager/core/archiceture/bloc_builder.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
@@ -93,7 +95,9 @@ class ProductsTab extends StatelessWidget {
                                                 ),
                                               ),
                                               title: const Text('Adicionar'),
-                                              onTap: () {},
+                                              onTap: () {
+                                                inspect(e);
+                                              },
                                             )),
                                         );
                                       } else if (state is BlocEmptyState) {

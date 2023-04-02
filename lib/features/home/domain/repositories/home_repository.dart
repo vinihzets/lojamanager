@@ -22,4 +22,12 @@ abstract class HomeRepository {
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category);
   Future<Either<Failure, void>> removeCategory(String id);
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      String image,
+      List images,
+      String name,
+      String price,
+      List sizes);
 }

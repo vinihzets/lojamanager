@@ -93,3 +93,17 @@ class HomeEventRemoveCategory implements HomeEvent {
 
   HomeEventRemoveCategory(this.context, this.id);
 }
+
+class HomeEventCreateProduct implements HomeEvent {
+  BuildContext context;
+  String description;
+  String idCategory;
+  String image;
+  List images;
+  String name;
+  String price;
+  List sizes;
+
+  HomeEventCreateProduct(this.context, this.description, this.idCategory,
+      this.image, this.images, this.name, this.price, this.sizes);
+}

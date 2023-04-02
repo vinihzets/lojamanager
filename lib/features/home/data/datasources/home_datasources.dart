@@ -22,4 +22,5 @@ abstract class HomeDataSources {
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category);
   Future<Either<Failure, void>> removeCategory(String id);
+  Future<Either<Failure, void>> createNewProduct();
 }

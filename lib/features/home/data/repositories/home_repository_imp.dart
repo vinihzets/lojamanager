@@ -70,4 +70,17 @@ class HomeRepositoryImp implements HomeRepository {
   Future<Either<Failure, void>> removeCategory(String id) {
     return homeDataSources.removeCategory(id);
   }
+
+  @override
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      String image,
+      List images,
+      String name,
+      String price,
+      List sizes) {
+    return homeDataSources.createNewProduct(
+        description, categoryID, image, images, name, price, sizes);
+  }
 }

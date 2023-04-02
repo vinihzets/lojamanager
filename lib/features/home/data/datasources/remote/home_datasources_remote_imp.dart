@@ -168,4 +168,39 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      String image,
+      List images,
+      String name,
+      String price,
+      List sizes) async {
+    try {
+      final db = await databaseService.db
+          .collection('products')
+          .doc(categoryID)
+          .collection('items')
+          .add({
+        'description': description,
+        'idCategory': categoryID,
+        'image': image,
+        'images': images,
+        'name': name,
+        'price': price,
+        'sizes': sizes,
+      }).then((value) => databaseService.db
+              .collection('products')
+              .doc(categoryID)
+              .collection('items')
+              .doc(value.id)
+              .update({'id': value.id}));
+
+      return Right(db);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }

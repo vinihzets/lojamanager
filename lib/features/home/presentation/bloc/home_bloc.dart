@@ -7,6 +7,7 @@ import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/create_new_category_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/create_new_product_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
@@ -32,6 +33,7 @@ class HomeBloc with HudMixins {
   CategoriesChangesUseCase categoriesChangesUseCase;
   CreateNewCategoryUseCase createNewCategoryUseCase;
   RemoveCategoryUseCase removeCategoryUseCase;
+  CreateNewProductUseCase createNewProductUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -64,7 +66,8 @@ class HomeBloc with HudMixins {
       this.getCategoriesProductsUseCase,
       this.categoriesChangesUseCase,
       this.createNewCategoryUseCase,
-      this.removeCategoryUseCase) {
+      this.removeCategoryUseCase,
+      this.createNewProductUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
@@ -129,6 +132,9 @@ class HomeBloc with HudMixins {
       createNewCategory(event.context, event.image, event.category);
     } else if (event is HomeEventRemoveCategory) {
       removeCategory(event.context, event.id);
+    } else if (event is HomeEventCreateProduct) {
+      createProduct(event.context, event.description, event.idCategory,
+          event.image, event.images, event.name, event.price, event.sizes);
     }
   }
 
@@ -267,6 +273,17 @@ class HomeBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       dispatchEvent(HomeEventNavigateRemoveUntil(context, gConsts.homeScreen));
+    });
+  }
+
+  createProduct(BuildContext context, String description, String categoryID,
+      String image, List images, String name, String price, List sizes) async {
+    final newProduct = await createNewProductUseCase.createNewProduct(
+        description, categoryID, image, images, name, price, sizes);
+    newProduct.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      navigateRemoveUntil(context, gConsts.homeScreen);
     });
   }
 }

@@ -46,7 +46,7 @@ class NewCategoryDialog extends StatelessWidget {
                   child: TextFormField(
                     validator: (v) {
                       if (v!.isEmpty) {
-                        return 'Insira a categoria de Produtos';
+                        return 'Insira a Categoria de Produtos';
                       }
                       return null;
                     },
