@@ -98,7 +98,7 @@ class Inject {
 
     getIt.registerFactory(() => ProductBloc(getIt()));
     getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt(), getIt(),
-        getIt(), getIt(), getIt(), getIt(), getIt()));
+        getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }
