@@ -111,7 +111,8 @@ class HomeEventCreateProduct implements HomeEvent {
   String name;
   String price;
   List sizes;
+  String productId;
 
   HomeEventCreateProduct(this.context, this.description, this.idCategory,
-      this.images, this.name, this.price, this.sizes);
+      this.images, this.name, this.price, this.sizes, this.productId);
 }

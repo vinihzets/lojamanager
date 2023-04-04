@@ -123,7 +123,7 @@ class HomeBloc with HudMixins {
       removeCategory(event.context, event.id);
     } else if (event is HomeEventCreateProduct) {
       createProduct(event.context, event.description, event.idCategory,
-          event.images, event.name, event.price, event.sizes);
+          event.images, event.name, event.price, event.sizes, event.productId);
     } else if (event is HomeEventNavigateCreateNewProduct) {
       navigateThenUntilArgs(event.context, event.routeName, event.args);
     }
@@ -275,10 +275,17 @@ class HomeBloc with HudMixins {
     });
   }
 
-  createProduct(BuildContext context, String description, String categoryID,
-      List images, String name, String price, List sizes) async {
-    final newProduct = await productsUseCase.createNewProduct(
-        description, categoryID, images, name, price, sizes, DateTime.now());
+  createProduct(
+      BuildContext context,
+      String description,
+      String categoryID,
+      List images,
+      String name,
+      String price,
+      List sizes,
+      String productId) async {
+    final newProduct = await productsUseCase.createNewProduct(description,
+        categoryID, images, name, price, sizes, DateTime.now(), productId);
     newProduct.fold((l) {
       showSnack(context, l.message);
     }, (r) {

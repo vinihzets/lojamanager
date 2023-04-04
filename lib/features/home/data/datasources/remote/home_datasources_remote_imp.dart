@@ -187,7 +187,8 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       String name,
       String price,
       List sizes,
-      DateTime createdAt) async {
+      DateTime createdAt,
+      String productId) async {
     try {
       final db = await databaseService.db
           .collection('products')
@@ -201,12 +202,25 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
         'price': price,
         'sizes': sizes,
         'createdAt': createdAt,
-      }).then((value) => databaseService.db
-              .collection('products')
-              .doc(categoryID)
-              .collection('items')
-              .doc(value.id)
-              .update({'id': value.id}));
+      }).then((value) async {
+        await databaseService.db
+            .collection('products')
+            .doc(categoryID)
+            .collection('items')
+            .doc(value.id)
+            .update({'id': value.id});
+
+        await databaseService.db.collection('news').add({
+          'description': description,
+          'categoryId': categoryID,
+          'productId': value.id,
+          'images': images,
+          'name': name,
+          'price': price,
+          'sizes': sizes,
+          'createdAt': createdAt,
+        });
+      });
 
       return Right(db);
     } on FirebaseException catch (e) {

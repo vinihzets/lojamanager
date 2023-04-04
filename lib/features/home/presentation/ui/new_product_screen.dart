@@ -51,7 +51,8 @@ class _NewProductScreenState extends State<NewProductScreen> {
                         bloc.productsImages,
                         nameController.text,
                         priceController.text,
-                        bloc.productsSizes));
+                        bloc.productsSizes,
+                        ''));
                   }
                 }
               },

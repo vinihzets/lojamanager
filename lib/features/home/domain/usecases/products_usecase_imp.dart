@@ -21,8 +21,9 @@ class ProductsUseCaseImp implements ProductsUseCase {
       String name,
       String price,
       List sizes,
-      DateTime createdAt) {
-    return homeRepository.createNewProduct(
-        description, categoryID, images, name, price, sizes, createdAt);
+      DateTime createdAt,
+      String productId) {
+    return homeRepository.createNewProduct(description, categoryID, images,
+        name, price, sizes, createdAt, productId);
   }
 }

@@ -79,9 +79,10 @@ class HomeRepositoryImp implements HomeRepository {
       String name,
       String price,
       List sizes,
-      DateTime createdAt) {
-    return homeDataSources.createNewProduct(
-        description, categoryID, images, name, price, sizes, createdAt);
+      DateTime createdAt,
+      String productId) {
+    return homeDataSources.createNewProduct(description, categoryID, images,
+        name, price, sizes, createdAt, productId);
   }
 
   @override

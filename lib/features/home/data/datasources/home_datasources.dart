@@ -30,6 +30,7 @@ abstract class HomeDataSources {
       String name,
       String price,
       List sizes,
-      DateTime createdAt);
+      DateTime createdAt,
+      String productId);
   Future<Either<Failure, void>> removeProducts();
 }
