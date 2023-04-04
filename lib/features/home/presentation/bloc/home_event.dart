@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
+import '../../data/dto/orders_dto.dart';
+import '../../domain/entities/products_categories_entity.dart';
 
 abstract class HomeEvent {}
 
@@ -98,12 +98,11 @@ class HomeEventCreateProduct implements HomeEvent {
   BuildContext context;
   String description;
   String idCategory;
-  String image;
   List images;
   String name;
   String price;
   List sizes;
 
   HomeEventCreateProduct(this.context, this.description, this.idCategory,
-      this.image, this.images, this.name, this.price, this.sizes);
+      this.images, this.name, this.price, this.sizes);
 }

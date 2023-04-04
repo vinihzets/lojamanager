@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/core/services/auth/auth_service.dart';
-import 'package:lojamanager/core/utils/hud_mixins.dart';
-import 'package:lojamanager/features/initialize/presentation/bloc/initialize_bloc_event.dart';
-import 'package:lojamanager/main.dart';
+
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../../../core/services/auth/auth_service.dart';
+import '../../../../core/utils/hud_mixins.dart';
+import '../../../../main.dart';
+import 'initialize_bloc_event.dart';
 
 class InitializeBloc with HudMixins {
   AuthService authService;

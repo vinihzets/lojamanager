@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
+import '../../../../core/failure/failure.dart';
+import '../../data/dto/orders_dto.dart';
+import '../entities/categories_entity.dart';
+import '../entities/orders_entity.dart';
+import '../entities/products_categories_entity.dart';
+import '../entities/users_entity.dart';
 
 abstract class HomeRepository {
   Future<Either<Failure, void>> signOut();
@@ -22,12 +22,6 @@ abstract class HomeRepository {
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category);
   Future<Either<Failure, void>> removeCategory(String id);
-  Future<Either<Failure, void>> createNewProduct(
-      String description,
-      String categoryID,
-      String image,
-      List images,
-      String name,
-      String price,
-      List sizes);
+  Future<Either<Failure, void>> createNewProduct(String description,
+      String categoryID, List images, String name, String price, List sizes);
 }

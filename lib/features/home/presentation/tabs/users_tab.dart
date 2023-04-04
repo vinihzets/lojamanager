@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/archiceture/bloc_builder.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
-import 'package:lojamanager/features/home/presentation/widgets/user_tile.dart';
+import '../../../../core/archiceture/bloc_builder.dart';
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../domain/entities/users_entity.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
+import '../widgets/user_tile.dart';
 
 class UsersTab extends StatefulWidget {
   final HomeBloc bloc;

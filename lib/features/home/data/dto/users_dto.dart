@@ -1,4 +1,4 @@
-import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
+import '../../domain/entities/users_entity.dart';
 
 class UsersDto extends UsersEntity {
   UsersDto(super.email);

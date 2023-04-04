@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/login/domain/usecases/sign_in_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import 'sign_in_usecase.dart';
 
 import '../repositories/login_repository.dart';
 

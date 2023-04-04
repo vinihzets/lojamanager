@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/core/utils/hud_mixins.dart';
-import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
-import 'package:lojamanager/features/products/presentation/bloc/product_event.dart';
-import 'package:lojamanager/main.dart';
+
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../../../core/utils/hud_mixins.dart';
+import '../../../../main.dart';
+import '../../domain/usecases/product_modify_usecase.dart';
+import 'product_event.dart';
 
 class ProductBloc with HudMixins {
   ProductModifyUseCase productModifyUseCase;

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
-import 'package:lojamanager/features/home/domain/usecases/create_new_product_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import '../repositories/home_repository.dart';
+import 'create_new_product_usecase.dart';
 
 class CreateNewProductUseCaseImp implements CreateNewProductUseCase {
   HomeRepository homeRepository;
@@ -9,15 +9,9 @@ class CreateNewProductUseCaseImp implements CreateNewProductUseCase {
   CreateNewProductUseCaseImp(this.homeRepository);
 
   @override
-  Future<Either<Failure, void>> createNewProduct(
-      String description,
-      String categoryID,
-      String image,
-      List images,
-      String name,
-      String price,
-      List sizes) {
+  Future<Either<Failure, void>> createNewProduct(String description,
+      String categoryID, List images, String name, String price, List sizes) {
     return homeRepository.createNewProduct(
-        description, categoryID, image, images, name, price, sizes);
+        description, categoryID, images, name, price, sizes);
   }
 }

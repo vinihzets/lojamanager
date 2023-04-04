@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
-import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
-import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import '../entities/orders_entity.dart';
+import '../repositories/home_repository.dart';
+import 'get_orders_usecase.dart';
 
 class GetOrdersUseCaseImp implements GetOrdersUseCase {
   HomeRepository repository;

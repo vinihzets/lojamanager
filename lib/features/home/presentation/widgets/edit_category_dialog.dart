@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
 
 class EditCategoryDialog extends StatefulWidget {
   final CategoriesEntity categories;

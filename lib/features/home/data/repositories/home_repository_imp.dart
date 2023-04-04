@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/data/datasources/home_datasources.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
-import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
+import '../../../../core/failure/failure.dart';
+import '../datasources/home_datasources.dart';
+import '../dto/orders_dto.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../../domain/entities/orders_entity.dart';
+import '../../domain/entities/products_categories_entity.dart';
+import '../../domain/entities/users_entity.dart';
+import '../../domain/repositories/home_repository.dart';
 
 class HomeRepositoryImp implements HomeRepository {
   HomeDataSources homeDataSources;
@@ -72,15 +72,9 @@ class HomeRepositoryImp implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, void>> createNewProduct(
-      String description,
-      String categoryID,
-      String image,
-      List images,
-      String name,
-      String price,
-      List sizes) {
+  Future<Either<Failure, void>> createNewProduct(String description,
+      String categoryID, List images, String name, String price, List sizes) {
     return homeDataSources.createNewProduct(
-        description, categoryID, image, images, name, price, sizes);
+        description, categoryID, images, name, price, sizes);
   }
 }

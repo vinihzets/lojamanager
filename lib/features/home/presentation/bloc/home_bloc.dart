@@ -1,24 +1,23 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/core/utils/hud_mixins.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/create_new_category_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/create_new_product_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/get_categories_products_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/get_categories_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/get_orders_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/get_users_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/remove_category_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/sign_out_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/status_orders_usecase.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
-import 'package:lojamanager/main.dart';
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../../../core/utils/hud_mixins.dart';
+import '../../data/dto/orders_dto.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../../domain/entities/orders_entity.dart';
+import '../../domain/entities/products_categories_entity.dart';
+import '../../domain/usecases/categories_changes_usecase.dart';
+import '../../domain/usecases/create_new_category_usecase.dart';
+import '../../domain/usecases/create_new_product_usecase.dart';
+import '../../domain/usecases/get_categories_products_usecase.dart';
+import '../../domain/usecases/get_categories_usecase.dart';
+import '../../domain/usecases/get_orders_usecase.dart';
+import '../../domain/usecases/get_users_usecase.dart';
+import '../../domain/usecases/remove_category_usecase.dart';
+import '../../domain/usecases/sign_out_usecase.dart';
+import '../../domain/usecases/status_orders_usecase.dart';
+import 'home_event.dart';
+import '../../../../main.dart';
 
 enum SortCritery {
   READY_FIRST,
@@ -137,7 +136,7 @@ class HomeBloc with HudMixins {
       removeCategory(event.context, event.id);
     } else if (event is HomeEventCreateProduct) {
       createProduct(event.context, event.description, event.idCategory,
-          event.image, event.images, event.name, event.price, event.sizes);
+          event.images, event.name, event.price, event.sizes);
     }
   }
 
@@ -289,9 +288,9 @@ class HomeBloc with HudMixins {
   }
 
   createProduct(BuildContext context, String description, String categoryID,
-      String image, List images, String name, String price, List sizes) async {
+      List images, String name, String price, List sizes) async {
     final newProduct = await createNewProductUseCase.createNewProduct(
-        description, categoryID, image, images, name, price, sizes);
+        description, categoryID, images, name, price, sizes);
     newProduct.fold((l) {
       showSnack(context, l.message);
     }, (r) {

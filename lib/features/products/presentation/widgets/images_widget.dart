@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/products/presentation/widgets/image_getter.dart';
+
+import 'image_getter.dart';
 
 class ImagesWidget extends FormField<List> {
   ImagesWidget({

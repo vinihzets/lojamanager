@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/products/domain/repositories/product_repository.dart';
-import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import '../repositories/product_repository.dart';
+import 'product_modify_usecase.dart';
 
 class ProductModifyUseCaseImp implements ProductModifyUseCase {
   ProductRepository productRepository;

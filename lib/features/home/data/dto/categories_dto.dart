@@ -1,4 +1,4 @@
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
+import '../../domain/entities/categories_entity.dart';
 
 class CategoriesDto extends CategoriesEntity {
   CategoriesDto(super.icon, super.id, super.name);

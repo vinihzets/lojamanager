@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/login/presentation/bloc/login_bloc.dart';
-import 'package:lojamanager/features/login/presentation/bloc/login_event.dart';
+import '../bloc/login_bloc.dart';
+import '../bloc/login_event.dart';
 
 class BuildColumnWidgets extends StatelessWidget {
   final LoginBloc bloc;

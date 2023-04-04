@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/archiceture/bloc_builder.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
-import 'package:lojamanager/features/home/presentation/widgets/order_tile.dart';
+import '../../../../core/archiceture/bloc_builder.dart';
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../data/dto/orders_dto.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
+import '../widgets/order_tile.dart';
 
 class OrdersTab extends StatelessWidget {
   final HomeBloc bloc;

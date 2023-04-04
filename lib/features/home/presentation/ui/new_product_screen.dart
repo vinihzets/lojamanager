@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../../../home/domain/entities/products_categories_entity.dart';
-import '../bloc/product_bloc.dart';
-import '../bloc/product_event.dart';
+import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
+import '../bloc/home_bloc.dart';
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+class NewProductScreen extends StatefulWidget {
+  const NewProductScreen({super.key});
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  State<NewProductScreen> createState() => _NewProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _NewProductScreenState extends State<NewProductScreen> {
   bool showTextFieldSizes = false;
   bool showTextFieldImages = false;
   final _formKey = GlobalKey<FormState>();
-  late ProductBloc bloc;
+  late HomeBloc bloc;
 
   @override
   void initState() {
@@ -25,11 +24,12 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List productsImages = [];
+    List productsSizes = [];
+
     final nameController = TextEditingController();
     final descripController = TextEditingController();
     final priceController = TextEditingController();
-    ProductsCategoriesEntity product =
-        ModalRoute.of(context)!.settings.arguments as ProductsCategoriesEntity;
 
     return Scaffold(
       backgroundColor: Colors.grey[850],
@@ -40,15 +40,15 @@ class _ProductScreenState extends State<ProductScreen> {
               onPressed: () {
                 final key = _formKey.currentState!.validate();
                 if (key == true) {
-                  bloc.event.add(ProductEventChanges(
+                  bloc.event.add(HomeEventCreateProduct(
                       context,
-                      nameController.text,
                       descripController.text,
+                      idCategory,
+                      image,
+                      images,
+                      nameController.text,
                       priceController.text,
-                      product.idCategory,
-                      product.id,
-                      product.sizes,
-                      product.images));
+                      sizes));
                 }
               },
               icon: const Icon(Icons.save)),
@@ -77,10 +77,10 @@ class _ProductScreenState extends State<ProductScreen> {
                             mainAxisSpacing: 8.0,
                             childAspectRatio: 0.5),
                     scrollDirection: Axis.horizontal,
-                    children: product.images
+                    children: productsImages
                         .map((e) => GestureDetector(
                               onLongPress: () {
-                                product.images.remove(e);
+                                productsImages.remove(e);
                                 setState(() {});
                               },
                               child: Container(
@@ -114,7 +114,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ))
                               : TextField(
                                   onSubmitted: (value) {
-                                    product.images.add(value);
+                                    productsImages.add(value);
                                     setState(() {
                                       showTextFieldSizes = false;
                                     });
@@ -180,10 +180,10 @@ class _ProductScreenState extends State<ProductScreen> {
                             mainAxisSpacing: 8.0,
                             childAspectRatio: 0.5),
                     scrollDirection: Axis.horizontal,
-                    children: product.sizes
+                    children: productsSizes
                         .map((e) => GestureDetector(
                               onLongPress: () {
-                                product.sizes.remove(e);
+                                productsSizes.remove(e);
                                 setState(() {});
                               },
                               child: Container(
@@ -215,7 +215,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ))
                               : TextField(
                                   onSubmitted: (value) {
-                                    product.sizes.add(value);
+                                    productsSizes.add(value);
                                     setState(() {
                                       showTextFieldSizes = false;
                                     });

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
 
 class NewCategoryDialog extends StatelessWidget {
   final HomeBloc bloc;

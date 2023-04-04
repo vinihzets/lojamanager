@@ -1,15 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:lojamanager/core/archiceture/bloc_builder.dart';
-import 'package:lojamanager/core/archiceture/bloc_state.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
-import 'package:lojamanager/features/home/presentation/widgets/edit_category_dialog.dart';
-import 'package:lojamanager/features/home/presentation/widgets/new_category_dialog.dart';
-import 'package:lojamanager/main.dart';
+import '../../../../core/archiceture/bloc_builder.dart';
+import '../../../../core/archiceture/bloc_state.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../../domain/entities/products_categories_entity.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
+import '../widgets/edit_category_dialog.dart';
+import '../../../../main.dart';
 
 class ProductsTab extends StatelessWidget {
   final HomeBloc bloc;
@@ -96,7 +93,11 @@ class ProductsTab extends StatelessWidget {
                                               ),
                                               title: const Text('Adicionar'),
                                               onTap: () {
-                                                inspect(e);
+                                                bloc.event.add(
+                                                    HomeEventNavigateRemoveUntil(
+                                                        context,
+                                                        gConsts
+                                                            .newProductScreen));
                                               },
                                             )),
                                         );

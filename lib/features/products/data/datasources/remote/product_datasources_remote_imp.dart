@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/core/services/database/database_service.dart';
-import 'package:lojamanager/features/products/data/datasources/product_datasources.dart';
+import '../../../../../core/failure/failure.dart';
+import '../../../../../core/services/database/database_service.dart';
+import '../product_datasources.dart';
 
 class ProductDataSourcesRemoteImp implements ProductDataSources {
   DatabaseService databaseService;

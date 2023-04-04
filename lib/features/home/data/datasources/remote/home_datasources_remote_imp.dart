@@ -1,18 +1,18 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/core/services/auth/auth_service.dart';
-import 'package:lojamanager/core/services/database/database_service.dart';
-import 'package:lojamanager/features/home/data/datasources/home_datasources.dart';
-import 'package:lojamanager/features/home/data/dto/categories_dto.dart';
-import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
-import 'package:lojamanager/features/home/data/dto/products_categories_dto.dart';
-import 'package:lojamanager/features/home/data/dto/users_dto.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/users_entity.dart';
+import '../../../../../core/failure/failure.dart';
+import '../../../../../core/services/auth/auth_service.dart';
+import '../../../../../core/services/database/database_service.dart';
+import '../home_datasources.dart';
+import '../../dto/categories_dto.dart';
+import '../../dto/orders_dto.dart';
+import '../../dto/products_categories_dto.dart';
+import '../../dto/users_dto.dart';
+import '../../../domain/entities/categories_entity.dart';
+import '../../../domain/entities/orders_entity.dart';
+import '../../../domain/entities/products_categories_entity.dart';
+import '../../../domain/entities/users_entity.dart';
 
 class HomeDataSourcesRemoteImp implements HomeDataSources {
   AuthService authService;
@@ -184,7 +184,6 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
   Future<Either<Failure, void>> createNewProduct(
       String description,
       String categoryID,
-      String image,
       List images,
       String name,
       String price,
@@ -197,7 +196,6 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
           .add({
         'description': description,
         'idCategory': categoryID,
-        'image': image,
         'images': images,
         'name': name,
         'price': price,
