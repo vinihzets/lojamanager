@@ -24,4 +24,5 @@ abstract class HomeDataSources {
   Future<Either<Failure, void>> removeCategory(String id);
   Future<Either<Failure, void>> createNewProduct(String description,
       String categoryID, List images, String name, String price, List sizes);
+  Future<Either<Failure, void>> removeProducts();
 }

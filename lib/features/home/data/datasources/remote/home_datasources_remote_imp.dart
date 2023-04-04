@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../../core/failure/failure.dart';
@@ -211,5 +212,10 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeProducts() {
+    throw UnimplementedError();
   }
 }

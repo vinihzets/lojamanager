@@ -1,14 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_usecase_imp.dart';
+import 'package:lojamanager/features/home/domain/usecases/products_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/products_usecase_imp.dart';
 import '../services/auth/auth_service.dart';
 import '../services/database/database_service.dart';
 import '../../features/home/data/datasources/home_datasources.dart';
 import '../../features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import '../../features/home/data/repositories/home_repository_imp.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
-import '../../features/home/domain/usecases/create_new_product_usecase.dart';
-import '../../features/home/domain/usecases/create_new_product_usecase_imp.dart';
 import '../../features/home/domain/usecases/orders_usecase.dart';
 import '../../features/home/domain/usecases/orders_usecase_imp.dart';
 import '../../features/home/domain/usecases/users_usecase.dart';
@@ -67,8 +67,8 @@ class Inject {
     getIt.registerLazySingleton<CategoriesUseCase>(
         () => CategoriesUseCaseImp(getIt()));
 
-    getIt.registerLazySingleton<CreateNewProductUseCase>(
-        () => CreateNewProductUseCaseImp(getIt()));
+    getIt.registerLazySingleton<ProductsUseCase>(
+        () => ProductsUseCaseImp(getIt()));
 
     getIt.registerLazySingleton<ProductModifyUseCase>(
         () => ProductModifyUseCaseImp(getIt()));

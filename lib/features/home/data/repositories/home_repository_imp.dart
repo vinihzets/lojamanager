@@ -77,4 +77,9 @@ class HomeRepositoryImp implements HomeRepository {
     return homeDataSources.createNewProduct(
         description, categoryID, images, name, price, sizes);
   }
+
+  @override
+  Future<Either<Failure, void>> removeProducts() {
+    return homeDataSources.removeProducts();
+  }
 }
