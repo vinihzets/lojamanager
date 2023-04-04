@@ -4,10 +4,10 @@ import '../entities/orders_entity.dart';
 import '../repositories/home_repository.dart';
 import 'get_orders_usecase.dart';
 
-class GetOrdersUseCaseImp implements GetOrdersUseCase {
+class OrdersUseCaseImp implements OrdersUseCase {
   HomeRepository repository;
 
-  GetOrdersUseCaseImp(this.repository);
+  OrdersUseCaseImp(this.repository);
 
   @override
   Future<Either<Failure, List<OrdersEntity>>> getOrders() {

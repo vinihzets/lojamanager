@@ -1,25 +1,18 @@
 import 'package:get_it/get_it.dart';
+import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
+import 'package:lojamanager/features/home/domain/usecases/categories_usecase_imp.dart';
 import '../services/auth/auth_service.dart';
 import '../services/database/database_service.dart';
 import '../../features/home/data/datasources/home_datasources.dart';
 import '../../features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import '../../features/home/data/repositories/home_repository_imp.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
-import '../../features/home/domain/usecases/categories_changes_usecase.dart';
-import '../../features/home/domain/usecases/categories_changes_usecase_imp.dart';
-import '../../features/home/domain/usecases/create_new_category_usecase.dart';
 import '../../features/home/domain/usecases/create_new_product_usecase.dart';
 import '../../features/home/domain/usecases/create_new_product_usecase_imp.dart';
-import '../../features/home/domain/usecases/get_categories_products_usecase.dart';
-import '../../features/home/domain/usecases/get_categories_products_usecase_imp.dart';
-import '../../features/home/domain/usecases/get_categories_usecase.dart';
-import '../../features/home/domain/usecases/get_categories_usecase_imp.dart';
 import '../../features/home/domain/usecases/get_orders_usecase.dart';
 import '../../features/home/domain/usecases/get_orders_usecase_imp.dart';
-import '../../features/home/domain/usecases/get_users_usecase.dart';
-import '../../features/home/domain/usecases/get_users_usecase_imp.dart';
-import '../../features/home/domain/usecases/remove_category_usecase.dart';
-import '../../features/home/domain/usecases/remove_category_usecase_imp.dart';
+import '../../features/home/domain/usecases/users_usecase.dart';
+import '../../features/home/domain/usecases/users_usecase_imp.dart';
 import '../../features/home/domain/usecases/sign_out_usecase.dart';
 import '../../features/home/domain/usecases/sign_out_usecase_imp.dart';
 import '../../features/home/domain/usecases/status_orders_usecase.dart';
@@ -40,8 +33,6 @@ import '../../features/products/domain/repositories/product_repository.dart';
 import '../../features/products/domain/usecases/product_modify_usecase.dart';
 import '../../features/products/domain/usecases/product_modify_usecase_imp.dart';
 import '../../features/products/presentation/bloc/product_bloc.dart';
-
-import '../../features/home/domain/usecases/create_new_category_usecase_imp.dart';
 
 class Inject {
   static initialize() {
@@ -73,29 +64,20 @@ class Inject {
         () => LoginRepositoryImp(getIt()));
     // usecases
 
+    getIt.registerLazySingleton<CategoriesUseCase>(
+        () => CategoriesUseCaseImp(getIt()));
+
     getIt.registerLazySingleton<CreateNewProductUseCase>(
         () => CreateNewProductUseCaseImp(getIt()));
 
-    getIt.registerLazySingleton<RemoveCategoryUseCase>(
-        () => RemoveCategoryUseCaseImp(getIt()));
-    getIt.registerLazySingleton<CreateNewCategoryUseCase>(
-        () => CreateNewCategoryUseCaseImp(getIt()));
-    getIt.registerLazySingleton<CategoriesChangesUseCase>(
-        () => CategoriesChangesUseCaseImp(getIt()));
     getIt.registerLazySingleton<ProductModifyUseCase>(
         () => ProductModifyUseCaseImp(getIt()));
-    getIt.registerLazySingleton<GetCategoriesProductsUseCase>(
-        () => GetCategoriesProductsUseCaseImp(getIt()));
 
-    getIt.registerLazySingleton<GetCategoriesUseCase>(
-        () => GetCategoriesUseCaseImp(getIt()));
     getIt.registerLazySingleton<StatusOrderUseCase>(
         () => StatusOrderUseCaseImp(getIt()));
-    getIt.registerLazySingleton<GetOrdersUseCase>(
-        () => GetOrdersUseCaseImp(getIt()));
+    getIt.registerLazySingleton<OrdersUseCase>(() => OrdersUseCaseImp(getIt()));
 
-    getIt.registerLazySingleton<GetUsersUseCase>(
-        () => GetUsersUseCaseImp(getIt()));
+    getIt.registerLazySingleton<UsersUseCase>(() => UsersUseCaseImp(getIt()));
 
     getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCaseImp(getIt()));
     getIt.registerLazySingleton<SignOutUseCase>(
@@ -103,8 +85,8 @@ class Inject {
     // bloc
 
     getIt.registerFactory(() => ProductBloc(getIt()));
-    getIt.registerFactory(() => HomeBloc(getIt(), getIt(), getIt(), getIt(),
-        getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
+    getIt.registerFactory(
+        () => HomeBloc(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
     getIt.registerFactory<LoginBloc>(() => LoginBloc(getIt(), getIt()));
     getIt.registerFactory<InitializeBloc>(() => InitializeBloc(getIt()));
   }

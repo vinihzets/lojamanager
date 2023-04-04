@@ -7,12 +7,9 @@ import '../../data/dto/orders_dto.dart';
 import '../../domain/entities/categories_entity.dart';
 import '../../domain/entities/orders_entity.dart';
 import '../../domain/entities/products_categories_entity.dart';
-import '../../domain/usecases/categories_changes_usecase.dart';
 import '../../domain/usecases/create_new_product_usecase.dart';
-import '../../domain/usecases/get_categories_products_usecase.dart';
 import '../../domain/usecases/get_orders_usecase.dart';
-import '../../domain/usecases/get_users_usecase.dart';
-import '../../domain/usecases/remove_category_usecase.dart';
+import '../../domain/usecases/users_usecase.dart';
 import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/status_orders_usecase.dart';
 import 'home_event.dart';
@@ -25,13 +22,10 @@ enum SortCritery {
 
 class HomeBloc with HudMixins {
   SignOutUseCase signOutUseCase;
-  GetUsersUseCase getUsersUseCase;
-  GetOrdersUseCase getOrdersUseCase;
+  UsersUseCase getUsersUseCase;
+  OrdersUseCase getOrdersUseCase;
   StatusOrderUseCase statusOrderUseCase;
-  GetCategoriesProductsUseCase getCategoriesProductsUseCase;
-  CategoriesChangesUseCase categoriesChangesUseCase;
   CategoriesUseCase categoriesUseCase;
-  RemoveCategoryUseCase removeCategoryUseCase;
   CreateNewProductUseCase createNewProductUseCase;
 
   late StreamController<BlocState> _state;
@@ -63,10 +57,7 @@ class HomeBloc with HudMixins {
       this.getUsersUseCase,
       this.getOrdersUseCase,
       this.statusOrderUseCase,
-      this.getCategoriesProductsUseCase,
-      this.categoriesChangesUseCase,
       this.categoriesUseCase,
-      this.removeCategoryUseCase,
       this.createNewProductUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
@@ -208,8 +199,7 @@ class HomeBloc with HudMixins {
   }
 
   getCategoriesProducts(BuildContext context, String id) async {
-    final products =
-        await getCategoriesProductsUseCase.getCategoriesProducts(id);
+    final products = await categoriesUseCase.getCategoriesProducts(id);
     products.fold((l) {
       showSnack(context, l.message);
     }, (r) {
@@ -221,7 +211,7 @@ class HomeBloc with HudMixins {
 
   categoriesChanges(BuildContext context, String category, String id) async {
     final changesRequest =
-        await categoriesChangesUseCase.categoriesChanges(category, id);
+        await categoriesUseCase.categoriesChanges(category, id);
     changesRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
@@ -278,7 +268,7 @@ class HomeBloc with HudMixins {
     BuildContext context,
     String id,
   ) async {
-    final removeRequest = await removeCategoryUseCase.removeCategory(id);
+    final removeRequest = await categoriesUseCase.removeCategory(id);
 
     removeRequest.fold((l) {
       showSnack(context, l.message);
