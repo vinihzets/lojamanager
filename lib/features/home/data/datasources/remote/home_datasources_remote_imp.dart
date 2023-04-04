@@ -158,12 +158,23 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
   }
 
   @override
-  Future<Either<Failure, void>> removeCategory(String id) async {
+  Future<Either<Failure, void>> removeCategory(
+    String id,
+  ) async {
     try {
-      final db =
-          await databaseService.db.collection('products').doc(id).delete();
+      final verifyExistsDocs = databaseService.db
+          .collection('products')
+          .doc(id)
+          .collection('items')
+          .get()
+          .then((doc) {
+        if (doc.docs.isNotEmpty) {
+        } else {
+          databaseService.db.collection('products').doc(id).delete();
+        }
+      });
 
-      return Right(db);
+      return Right(verifyExistsDocs);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
