@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
 import '../../data/dto/orders_dto.dart';
 import '../../domain/entities/products_categories_entity.dart';
 
@@ -57,6 +58,14 @@ class HomeEventNavigateToProducts implements HomeEvent {
   ProductsCategoriesEntity args;
 
   HomeEventNavigateToProducts(this.context, this.routeName, this.args);
+}
+
+class HomeEventNavigateCreateNewProduct implements HomeEvent {
+  BuildContext context;
+  String routeName;
+  CategoriesEntity args;
+
+  HomeEventNavigateCreateNewProduct(this.context, this.routeName, this.args);
 }
 
 class HomeEventNavigateThenUntil implements HomeEvent {

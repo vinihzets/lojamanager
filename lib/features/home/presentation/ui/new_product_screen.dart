@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
 import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
 import '../bloc/home_bloc.dart';
 
@@ -19,13 +22,14 @@ class _NewProductScreenState extends State<NewProductScreen> {
   @override
   void initState() {
     bloc = GetIt.I.get();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List productsImages = [];
-    List productsSizes = [];
+    CategoriesEntity args =
+        ModalRoute.of(context)!.settings.arguments as CategoriesEntity;
 
     final nameController = TextEditingController();
     final descripController = TextEditingController();
@@ -43,12 +47,11 @@ class _NewProductScreenState extends State<NewProductScreen> {
                   bloc.event.add(HomeEventCreateProduct(
                       context,
                       descripController.text,
-                      idCategory,
-                      image,
-                      images,
+                      args.id,
+                      bloc.productsImages,
                       nameController.text,
                       priceController.text,
-                      sizes));
+                      bloc.productsSizes));
                 }
               },
               icon: const Icon(Icons.save)),
@@ -77,10 +80,10 @@ class _NewProductScreenState extends State<NewProductScreen> {
                             mainAxisSpacing: 8.0,
                             childAspectRatio: 0.5),
                     scrollDirection: Axis.horizontal,
-                    children: productsImages
+                    children: bloc.productsImages
                         .map((e) => GestureDetector(
                               onLongPress: () {
-                                productsImages.remove(e);
+                                bloc.productsImages.remove(e);
                                 setState(() {});
                               },
                               child: Container(
@@ -114,7 +117,7 @@ class _NewProductScreenState extends State<NewProductScreen> {
                                   ))
                               : TextField(
                                   onSubmitted: (value) {
-                                    productsImages.add(value);
+                                    bloc.productsImages.add(value);
                                     setState(() {
                                       showTextFieldSizes = false;
                                     });
@@ -180,10 +183,10 @@ class _NewProductScreenState extends State<NewProductScreen> {
                             mainAxisSpacing: 8.0,
                             childAspectRatio: 0.5),
                     scrollDirection: Axis.horizontal,
-                    children: productsSizes
+                    children: bloc.productsSizes
                         .map((e) => GestureDetector(
                               onLongPress: () {
-                                productsSizes.remove(e);
+                                bloc.productsSizes.remove(e);
                                 setState(() {});
                               },
                               child: Container(
@@ -215,7 +218,7 @@ class _NewProductScreenState extends State<NewProductScreen> {
                                   ))
                               : TextField(
                                   onSubmitted: (value) {
-                                    productsSizes.add(value);
+                                    bloc.productsSizes.add(value);
                                     setState(() {
                                       showTextFieldSizes = false;
                                     });

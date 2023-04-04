@@ -57,6 +57,8 @@ class HomeBloc with HudMixins {
   late List states = [];
   late List<CategoriesEntity> categoriesList;
   late SortCritery sortCritery;
+  late List productsImages;
+  late List productsSizes;
 
   HomeBloc(
       this.signOutUseCase,
@@ -87,6 +89,8 @@ class HomeBloc with HudMixins {
       'Entregue',
     ];
     categoriesList = [];
+    productsImages = [];
+    productsSizes = [];
   }
 
   dispatchProductsState(BlocState state) {
@@ -137,6 +141,8 @@ class HomeBloc with HudMixins {
     } else if (event is HomeEventCreateProduct) {
       createProduct(event.context, event.description, event.idCategory,
           event.images, event.name, event.price, event.sizes);
+    } else if (event is HomeEventNavigateCreateNewProduct) {
+      navigateThenUntilArgs(event.context, event.routeName, event.args);
     }
   }
 
@@ -294,7 +300,7 @@ class HomeBloc with HudMixins {
     newProduct.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      navigateRemoveUntil(context, gConsts.homeScreen);
+      navigateThenUntil(context, gConsts.homeScreen);
     });
   }
 }

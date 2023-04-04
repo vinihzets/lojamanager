@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import '../../../../core/archiceture/bloc_builder.dart';
 import '../../../../core/archiceture/bloc_state.dart';
@@ -75,7 +77,8 @@ class ProductsTab extends StatelessWidget {
                                                       backgroundColor:
                                                           Colors.transparent,
                                                       backgroundImage:
-                                                          NetworkImage(e.image),
+                                                          NetworkImage(
+                                                              e.images.first),
                                                     ),
                                                     title: Text(e.name),
                                                     trailing:
@@ -94,10 +97,11 @@ class ProductsTab extends StatelessWidget {
                                               title: const Text('Adicionar'),
                                               onTap: () {
                                                 bloc.event.add(
-                                                    HomeEventNavigateRemoveUntil(
+                                                    HomeEventNavigateCreateNewProduct(
                                                         context,
                                                         gConsts
-                                                            .newProductScreen));
+                                                            .newProductScreen,
+                                                        e));
                                               },
                                             )),
                                         );
