@@ -8,6 +8,7 @@ class CreateNewCategoryUseCaseImp implements CreateNewCategoryUseCase {
 
   CreateNewCategoryUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category) {
     return homeRepository.createNewCategory(icon, category);

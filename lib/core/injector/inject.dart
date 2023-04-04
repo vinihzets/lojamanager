@@ -5,7 +5,6 @@ import 'package:lojamanager/features/home/data/datasources/home_datasources.dart
 import 'package:lojamanager/features/home/data/datasources/remote/home_datasources_remote_imp.dart';
 import 'package:lojamanager/features/home/data/repositories/home_repository_imp.dart';
 import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
-import 'package:lojamanager/features/home/domain/usecases/%20create_new_category_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase_imp.dart';
 import 'package:lojamanager/features/home/domain/usecases/create_new_category_usecase.dart';
@@ -41,6 +40,8 @@ import 'package:lojamanager/features/products/domain/repositories/product_reposi
 import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase.dart';
 import 'package:lojamanager/features/products/domain/usecases/product_modify_usecase_imp.dart';
 import 'package:lojamanager/features/products/presentation/bloc/product_bloc.dart';
+
+import '../../features/home/domain/usecases/create_new_category_usecase_imp.dart';
 
 class Inject {
   static initialize() {

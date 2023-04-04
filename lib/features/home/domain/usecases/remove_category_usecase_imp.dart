@@ -8,6 +8,7 @@ class RemoveCategoryUseCaseImp implements RemoveCategoryUseCase {
 
   RemoveCategoryUseCaseImp(this.homeRepository);
 
+  @override
   Future<Either<Failure, void>> removeCategory(String id) {
     return homeRepository.removeCategory(id);
   }

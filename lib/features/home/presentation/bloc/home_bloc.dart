@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lojamanager/core/archiceture/bloc_state.dart';
 import 'package:lojamanager/core/utils/hud_mixins.dart';
 import 'package:lojamanager/features/home/data/dto/orders_dto.dart';
+import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/orders_entity.dart';
 import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
 import 'package:lojamanager/features/home/domain/usecases/categories_changes_usecase.dart';
@@ -55,7 +56,7 @@ class HomeBloc with HudMixins {
   List<ProductsCategoriesEntity> _cacheProducts = [];
 
   late List states = [];
-
+  late List<CategoriesEntity> categoriesList;
   late SortCritery sortCritery;
 
   HomeBloc(
@@ -86,6 +87,7 @@ class HomeBloc with HudMixins {
       'Enviado',
       'Entregue',
     ];
+    categoriesList = [];
   }
 
   dispatchProductsState(BlocState state) {
@@ -197,7 +199,9 @@ class HomeBloc with HudMixins {
     productsRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      dispatchCategoriesState(BlocStableState(r));
+      categoriesList = r;
+
+      dispatchCategoriesState(BlocStableState(categoriesList));
     });
   }
 
@@ -268,13 +272,19 @@ class HomeBloc with HudMixins {
     });
   }
 
-  removeCategory(BuildContext context, String id) async {
+  removeCategory(
+    BuildContext context,
+    String id,
+  ) async {
     final removeRequest = await removeCategoryUseCase.removeCategory(id);
 
     removeRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      dispatchEvent(HomeEventNavigateRemoveUntil(context, gConsts.homeScreen));
+      categoriesList.removeWhere((element) => element.id == id);
+
+      dispatchCategoriesState(BlocStableState(categoriesList));
+      Navigator.pop(context);
     });
   }
 
