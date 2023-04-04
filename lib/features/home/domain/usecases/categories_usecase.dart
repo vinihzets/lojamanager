@@ -10,4 +10,6 @@ abstract class CategoriesUseCase {
   Future<Either<Failure, void>> categoriesChanges(String category, String id);
 
   Future<Either<Failure, void>> removeCategory(String id);
+  Future<Either<Failure, List<ProductsCategoriesEntity>>> getCategoriesProducts(
+      String id);
 }

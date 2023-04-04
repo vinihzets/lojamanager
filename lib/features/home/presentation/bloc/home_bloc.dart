@@ -8,7 +8,7 @@ import '../../domain/entities/categories_entity.dart';
 import '../../domain/entities/orders_entity.dart';
 import '../../domain/entities/products_categories_entity.dart';
 import '../../domain/usecases/create_new_product_usecase.dart';
-import '../../domain/usecases/get_orders_usecase.dart';
+import '../../domain/usecases/orders_usecase.dart';
 import '../../domain/usecases/users_usecase.dart';
 import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/status_orders_usecase.dart';
@@ -22,8 +22,8 @@ enum SortCritery {
 
 class HomeBloc with HudMixins {
   SignOutUseCase signOutUseCase;
-  UsersUseCase getUsersUseCase;
-  OrdersUseCase getOrdersUseCase;
+  UsersUseCase usersUseCase;
+  OrdersUseCase ordersUseCase;
   StatusOrderUseCase statusOrderUseCase;
   CategoriesUseCase categoriesUseCase;
   CreateNewProductUseCase createNewProductUseCase;
@@ -54,8 +54,8 @@ class HomeBloc with HudMixins {
 
   HomeBloc(
       this.signOutUseCase,
-      this.getUsersUseCase,
-      this.getOrdersUseCase,
+      this.usersUseCase,
+      this.ordersUseCase,
       this.statusOrderUseCase,
       this.categoriesUseCase,
       this.createNewProductUseCase) {
@@ -145,7 +145,7 @@ class HomeBloc with HudMixins {
   }
 
   getUsers(BuildContext context) async {
-    final usersRequest = await getUsersUseCase.getUsers();
+    final usersRequest = await usersUseCase.getUsers();
     usersRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
@@ -154,7 +154,7 @@ class HomeBloc with HudMixins {
   }
 
   getOrders(BuildContext context) async {
-    final ordersRequest = await getOrdersUseCase.getOrders();
+    final ordersRequest = await ordersUseCase.getOrders();
     ordersRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
