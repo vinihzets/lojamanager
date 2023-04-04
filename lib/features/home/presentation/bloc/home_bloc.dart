@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
 import '../../../../core/archiceture/bloc_state.dart';
 import '../../../../core/utils/hud_mixins.dart';
 import '../../data/dto/orders_dto.dart';
@@ -7,10 +8,8 @@ import '../../domain/entities/categories_entity.dart';
 import '../../domain/entities/orders_entity.dart';
 import '../../domain/entities/products_categories_entity.dart';
 import '../../domain/usecases/categories_changes_usecase.dart';
-import '../../domain/usecases/create_new_category_usecase.dart';
 import '../../domain/usecases/create_new_product_usecase.dart';
 import '../../domain/usecases/get_categories_products_usecase.dart';
-import '../../domain/usecases/get_categories_usecase.dart';
 import '../../domain/usecases/get_orders_usecase.dart';
 import '../../domain/usecases/get_users_usecase.dart';
 import '../../domain/usecases/remove_category_usecase.dart';
@@ -29,10 +28,9 @@ class HomeBloc with HudMixins {
   GetUsersUseCase getUsersUseCase;
   GetOrdersUseCase getOrdersUseCase;
   StatusOrderUseCase statusOrderUseCase;
-  GetCategoriesUseCase getCategoriesUseCase;
   GetCategoriesProductsUseCase getCategoriesProductsUseCase;
   CategoriesChangesUseCase categoriesChangesUseCase;
-  CreateNewCategoryUseCase createNewCategoryUseCase;
+  CategoriesUseCase categoriesUseCase;
   RemoveCategoryUseCase removeCategoryUseCase;
   CreateNewProductUseCase createNewProductUseCase;
 
@@ -65,10 +63,9 @@ class HomeBloc with HudMixins {
       this.getUsersUseCase,
       this.getOrdersUseCase,
       this.statusOrderUseCase,
-      this.getCategoriesUseCase,
       this.getCategoriesProductsUseCase,
       this.categoriesChangesUseCase,
-      this.createNewCategoryUseCase,
+      this.categoriesUseCase,
       this.removeCategoryUseCase,
       this.createNewProductUseCase) {
     _event = StreamController.broadcast();
@@ -200,7 +197,7 @@ class HomeBloc with HudMixins {
   }
 
   getCategories(BuildContext context) async {
-    final productsRequest = await getCategoriesUseCase.getCategories();
+    final productsRequest = await categoriesUseCase.getCategories();
     productsRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
@@ -269,7 +266,7 @@ class HomeBloc with HudMixins {
 
   createNewCategory(BuildContext context, String icon, String category) async {
     final createCategoryRequest =
-        await createNewCategoryUseCase.createNewCategory(icon, category);
+        await categoriesUseCase.createNewCategory(icon, category);
     createCategoryRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {

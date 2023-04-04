@@ -44,14 +44,17 @@ class _NewProductScreenState extends State<NewProductScreen> {
               onPressed: () {
                 final key = _formKey.currentState!.validate();
                 if (key == true) {
-                  bloc.event.add(HomeEventCreateProduct(
-                      context,
-                      descripController.text,
-                      args.id,
-                      bloc.productsImages,
-                      nameController.text,
-                      priceController.text,
-                      bloc.productsSizes));
+                  if (bloc.productsImages.isNotEmpty &&
+                      bloc.productsSizes.isNotEmpty) {
+                    bloc.event.add(HomeEventCreateProduct(
+                        context,
+                        descripController.text,
+                        args.id,
+                        bloc.productsImages,
+                        nameController.text,
+                        priceController.text,
+                        bloc.productsSizes));
+                  }
                 }
               },
               icon: const Icon(Icons.save)),
@@ -119,7 +122,7 @@ class _NewProductScreenState extends State<NewProductScreen> {
                                   onSubmitted: (value) {
                                     bloc.productsImages.add(value);
                                     setState(() {
-                                      showTextFieldSizes = false;
+                                      showTextFieldImages = false;
                                     });
                                   },
                                   decoration: const InputDecoration(
