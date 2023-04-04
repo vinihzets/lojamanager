@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+
 import '../../../../core/failure/failure.dart';
 import '../../data/dto/orders_dto.dart';
 import '../entities/categories_entity.dart';
@@ -22,7 +23,13 @@ abstract class HomeRepository {
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category);
   Future<Either<Failure, void>> removeCategory(String id);
-  Future<Either<Failure, void>> createNewProduct(String description,
-      String categoryID, List images, String name, String price, List sizes);
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      List images,
+      String name,
+      String price,
+      List sizes,
+      DateTime createdAt);
   Future<Either<Failure, void>> removeProducts();
 }

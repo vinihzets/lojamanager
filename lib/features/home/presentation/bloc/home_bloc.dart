@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
+import '../../domain/usecases/categories_usecase.dart';
+import '../../domain/usecases/products_usecase.dart';
 import '../../../../core/archiceture/bloc_state.dart';
 import '../../../../core/utils/hud_mixins.dart';
 import '../../data/dto/orders_dto.dart';
 import '../../domain/entities/categories_entity.dart';
 import '../../domain/entities/orders_entity.dart';
 import '../../domain/entities/products_categories_entity.dart';
-import '../../domain/usecases/create_new_product_usecase.dart';
 import '../../domain/usecases/orders_usecase.dart';
 import '../../domain/usecases/users_usecase.dart';
 import '../../domain/usecases/sign_out_usecase.dart';
@@ -16,8 +16,8 @@ import 'home_event.dart';
 import '../../../../main.dart';
 
 enum SortCritery {
-  READY_FIRST,
-  READY_LAST,
+  readyFirst,
+  readyLast,
 }
 
 class HomeBloc with HudMixins {
@@ -26,7 +26,7 @@ class HomeBloc with HudMixins {
   OrdersUseCase ordersUseCase;
   StatusOrderUseCase statusOrderUseCase;
   CategoriesUseCase categoriesUseCase;
-  CreateNewProductUseCase createNewProductUseCase;
+  ProductsUseCase productsUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -52,13 +52,8 @@ class HomeBloc with HudMixins {
   late List productsImages;
   late List productsSizes;
 
-  HomeBloc(
-      this.signOutUseCase,
-      this.usersUseCase,
-      this.ordersUseCase,
-      this.statusOrderUseCase,
-      this.categoriesUseCase,
-      this.createNewProductUseCase) {
+  HomeBloc(this.signOutUseCase, this.usersUseCase, this.ordersUseCase,
+      this.statusOrderUseCase, this.categoriesUseCase, this.productsUseCase) {
     _event = StreamController.broadcast();
     _state = StreamController.broadcast();
 
@@ -221,7 +216,7 @@ class HomeBloc with HudMixins {
 
   void _sort() {
     switch (sortCritery) {
-      case SortCritery.READY_FIRST:
+      case SortCritery.readyFirst:
         _cache.sort((a, b) {
           int sa = a.status;
           int sb = b.status;
@@ -236,7 +231,7 @@ class HomeBloc with HudMixins {
         });
         break;
 
-      case SortCritery.READY_LAST:
+      case SortCritery.readyLast:
         _cache.sort((a, b) {
           int sa = a.status;
           int sb = b.status;
@@ -282,8 +277,8 @@ class HomeBloc with HudMixins {
 
   createProduct(BuildContext context, String description, String categoryID,
       List images, String name, String price, List sizes) async {
-    final newProduct = await createNewProductUseCase.createNewProduct(
-        description, categoryID, images, name, price, sizes);
+    final newProduct = await productsUseCase.createNewProduct(
+        description, categoryID, images, name, price, sizes, DateTime.now());
     newProduct.fold((l) {
       showSnack(context, l.message);
     }, (r) {

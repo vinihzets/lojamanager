@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
-import 'package:lojamanager/features/home/domain/repositories/home_repository.dart';
-import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
+import '../../../../core/failure/failure.dart';
+import '../entities/categories_entity.dart';
+import '../entities/products_categories_entity.dart';
+import '../repositories/home_repository.dart';
+import 'categories_usecase.dart';
 
 class CategoriesUseCaseImp implements CategoriesUseCase {
   HomeRepository homeRepository;

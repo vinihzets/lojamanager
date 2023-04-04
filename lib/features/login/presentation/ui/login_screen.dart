@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../bloc/login_bloc.dart';
 
+import '../bloc/login_bloc.dart';
 import '../widgets/build_column_widgets_login_screen.dart';
 
 class LoginScreen extends StatefulWidget {

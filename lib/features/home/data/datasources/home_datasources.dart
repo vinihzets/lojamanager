@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+
 import '../../../../core/failure/failure.dart';
-import '../dto/orders_dto.dart';
 import '../../domain/entities/categories_entity.dart';
 import '../../domain/entities/orders_entity.dart';
 import '../../domain/entities/products_categories_entity.dart';
 import '../../domain/entities/users_entity.dart';
+import '../dto/orders_dto.dart';
 
 abstract class HomeDataSources {
   Future<Either<Failure, void>> signOut();
@@ -22,7 +23,13 @@ abstract class HomeDataSources {
   Future<Either<Failure, dynamic>> createNewCategory(
       String icon, String category);
   Future<Either<Failure, void>> removeCategory(String id);
-  Future<Either<Failure, void>> createNewProduct(String description,
-      String categoryID, List images, String name, String price, List sizes);
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      List images,
+      String name,
+      String price,
+      List sizes,
+      DateTime createdAt);
   Future<Either<Failure, void>> removeProducts();
 }

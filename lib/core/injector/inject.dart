@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:lojamanager/features/home/domain/usecases/categories_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/categories_usecase_imp.dart';
-import 'package:lojamanager/features/home/domain/usecases/products_usecase.dart';
-import 'package:lojamanager/features/home/domain/usecases/products_usecase_imp.dart';
+import '../../features/home/domain/usecases/categories_usecase.dart';
+import '../../features/home/domain/usecases/categories_usecase_imp.dart';
+import '../../features/home/domain/usecases/products_usecase.dart';
+import '../../features/home/domain/usecases/products_usecase_imp.dart';
 import '../services/auth/auth_service.dart';
 import '../services/database/database_service.dart';
 import '../../features/home/data/datasources/home_datasources.dart';

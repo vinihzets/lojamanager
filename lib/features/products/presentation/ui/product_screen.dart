@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../../home/domain/entities/products_categories_entity.dart';
 import '../bloc/product_bloc.dart';
 import '../bloc/product_event.dart';

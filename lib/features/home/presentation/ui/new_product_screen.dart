@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/presentation/bloc/home_event.dart';
+import '../../domain/entities/categories_entity.dart';
+import '../bloc/home_event.dart';
 import '../bloc/home_bloc.dart';
 
 class NewProductScreen extends StatefulWidget {

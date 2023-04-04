@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
+import '../../domain/entities/categories_entity.dart';
 import '../../data/dto/orders_dto.dart';
 import '../../domain/entities/products_categories_entity.dart';
 

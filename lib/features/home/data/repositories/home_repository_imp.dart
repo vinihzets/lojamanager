@@ -72,10 +72,16 @@ class HomeRepositoryImp implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, void>> createNewProduct(String description,
-      String categoryID, List images, String name, String price, List sizes) {
+  Future<Either<Failure, void>> createNewProduct(
+      String description,
+      String categoryID,
+      List images,
+      String name,
+      String price,
+      List sizes,
+      DateTime createdAt) {
     return homeDataSources.createNewProduct(
-        description, categoryID, images, name, price, sizes);
+        description, categoryID, images, name, price, sizes, createdAt);
   }
 
   @override

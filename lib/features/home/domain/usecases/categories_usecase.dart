@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:lojamanager/core/failure/failure.dart';
-import 'package:lojamanager/features/home/domain/entities/categories_entity.dart';
-import 'package:lojamanager/features/home/domain/entities/products_categories_entity.dart';
+import '../../../../core/failure/failure.dart';
+import '../entities/categories_entity.dart';
+import '../entities/products_categories_entity.dart';
 
 abstract class CategoriesUseCase {
   Future<Either<Failure, dynamic>> createNewCategory(

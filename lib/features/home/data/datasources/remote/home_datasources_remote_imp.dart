@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../../core/failure/failure.dart';
@@ -188,7 +186,8 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
       List images,
       String name,
       String price,
-      List sizes) async {
+      List sizes,
+      DateTime createdAt) async {
     try {
       final db = await databaseService.db
           .collection('products')
@@ -201,6 +200,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
         'name': name,
         'price': price,
         'sizes': sizes,
+        'createdAt': createdAt,
       }).then((value) => databaseService.db
               .collection('products')
               .doc(categoryID)
@@ -216,6 +216,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
 
   @override
   Future<Either<Failure, void>> removeProducts() {
+    // ainda nao implementado //
     throw UnimplementedError();
   }
 }

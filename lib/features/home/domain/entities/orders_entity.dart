@@ -6,7 +6,8 @@ class OrdersEntity {
   List<ProductsDto> products;
   String orderId;
   String user;
+  num discount;
 
-  OrdersEntity(
-      this.totalPrice, this.status, this.products, this.orderId, this.user);
+  OrdersEntity(this.totalPrice, this.status, this.products, this.orderId,
+      this.user, this.discount);
 }

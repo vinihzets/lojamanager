@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get_it/get_it.dart';
 import '../bloc/home_bloc.dart';
-import '../bloc/home_event.dart';
 import '../tabs/orders_tab.dart';
 import '../tabs/products_tab.dart';
 import '../tabs/users_tab.dart';
-import '../../../../main.dart';
 
 import '../widgets/new_category_dialog.dart';
 
@@ -98,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 backgroundColor: Colors.white,
                 label: 'Concluidos abaixo',
-                onTap: () => bloc.criterySort(SortCritery.READY_LAST)),
+                onTap: () => bloc.criterySort(SortCritery.readyLast)),
             SpeedDialChild(
                 child: const Icon(
                   Icons.arrow_upward,
@@ -106,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 backgroundColor: Colors.white,
                 label: 'Concluidos acima',
-                onTap: () => bloc.criterySort(SortCritery.READY_FIRST))
+                onTap: () => bloc.criterySort(SortCritery.readyFirst))
           ],
           child: const Icon(Icons.sort),
         );

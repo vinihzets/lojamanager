@@ -18,7 +18,8 @@ class OrderTile extends StatelessWidget {
         ),
         Column(
           children: [
-            Text('Preco Total: ${order.totalPrice.toStringAsFixed(2)}'),
+            Text('Desconto: ${order.discount}'),
+            Text('Preco Final: ${order.totalPrice.toStringAsFixed(2)}'),
           ],
         )
       ],
