@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:lojamanager/features/home/presentation/bloc/home_bloc.dart';
 
 import '../../../../core/archiceture/bloc_state.dart';
 import '../../../../core/utils/hud_mixins.dart';
@@ -73,14 +74,12 @@ class ProductBloc with HudMixins {
 
   removeProduct(
       BuildContext context, String idCategory, String productId) async {
-    inspect(productId);
-    inspect(idCategory);
     final removeRequest =
         await productUseCase.productRemove(idCategory, productId);
     removeRequest.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      Navigator.pop(context);
+      navigateRemoveUntil(context, gConsts.homeScreen);
     });
   }
 }

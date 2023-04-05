@@ -45,7 +45,7 @@ class HomeBloc with HudMixins {
   Stream<BlocState> get stateProducts => _stateProducts.stream;
 
   List<OrdersEntity> _cache = [];
-  List<ProductsCategoriesEntity> _cacheProducts = [];
+  List<ProductsCategoriesEntity> cacheProducts = [];
 
   late List states = [];
   late List<CategoriesEntity> categoriesList;
@@ -201,9 +201,9 @@ class HomeBloc with HudMixins {
     products.fold((l) {
       showSnack(context, l.message);
     }, (r) {
-      _cacheProducts = r;
+      cacheProducts = r;
 
-      dispatchProductsState(BlocStableState(_cacheProducts));
+      dispatchProductsState(BlocStableState(cacheProducts));
     });
   }
 

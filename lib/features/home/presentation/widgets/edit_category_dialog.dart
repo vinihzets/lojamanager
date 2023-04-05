@@ -43,6 +43,17 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                     ElevatedButton(
                         style: const ButtonStyle(
                             backgroundColor:
+                                MaterialStatePropertyAll(Colors.grey)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Descartar')),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    ElevatedButton(
+                        style: const ButtonStyle(
+                            backgroundColor:
                                 MaterialStatePropertyAll(Colors.redAccent)),
                         onPressed: () {
                           widget.bloc.event.add(HomeEventRemoveCategory(
@@ -59,7 +70,7 @@ class _EditCategoryDialogState extends State<EditCategoryDialog> {
                               categoryController.text,
                               widget.categories.id));
                         },
-                        child: const Text('Concluir'))
+                        child: const Text('Concluir')),
                   ],
                 )
               ]),
