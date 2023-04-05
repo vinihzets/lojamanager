@@ -30,8 +30,8 @@ import '../../features/products/data/datasources/product_datasources.dart';
 import '../../features/products/data/datasources/remote/product_datasources_remote_imp.dart';
 import '../../features/products/data/repositories/product_repository_imp.dart';
 import '../../features/products/domain/repositories/product_repository.dart';
-import '../../features/products/domain/usecases/product_modify_usecase.dart';
-import '../../features/products/domain/usecases/product_modify_usecase_imp.dart';
+import '../../features/products/domain/usecases/product_usecase.dart';
+import '../../features/products/domain/usecases/product_usecase_imp.dart';
 import '../../features/products/presentation/bloc/product_bloc.dart';
 
 class Inject {
@@ -70,8 +70,8 @@ class Inject {
     getIt.registerLazySingleton<ProductsUseCase>(
         () => ProductsUseCaseImp(getIt()));
 
-    getIt.registerLazySingleton<ProductModifyUseCase>(
-        () => ProductModifyUseCaseImp(getIt()));
+    getIt.registerLazySingleton<ProductUseCase>(
+        () => ProductUseCaseImp(getIt()));
 
     getIt.registerLazySingleton<StatusOrderUseCase>(
         () => StatusOrderUseCaseImp(getIt()));

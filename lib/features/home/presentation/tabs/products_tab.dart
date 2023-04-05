@@ -8,16 +8,21 @@ import '../bloc/home_event.dart';
 import '../widgets/edit_category_dialog.dart';
 import '../../../../main.dart';
 
-class ProductsTab extends StatelessWidget {
+class ProductsTab extends StatefulWidget {
   final HomeBloc bloc;
   const ProductsTab({required this.bloc, super.key});
 
   @override
+  State<ProductsTab> createState() => _ProductsTabState();
+}
+
+class _ProductsTabState extends State<ProductsTab> {
+  @override
   Widget build(BuildContext context) {
-    bloc.event.add(HomeEventGetCategories(context));
+    widget.bloc.event.add(HomeEventGetCategories(context));
 
     return BlocScreenBuilder(
-        stream: bloc.stateCategories,
+        stream: widget.bloc.stateCategories,
         builder: (state) {
           if (state is BlocStableState) {
             List<CategoriesEntity> list = state.data;
@@ -35,7 +40,7 @@ class ProductsTab extends StatelessWidget {
                                         builder: (context) =>
                                             EditCategoryDialog(
                                               categories: e,
-                                              bloc: bloc,
+                                              bloc: widget.bloc,
                                             ));
                                   },
                                   child: const Text(
@@ -44,8 +49,9 @@ class ProductsTab extends StatelessWidget {
                                   )),
                               onExpansionChanged: (value) {
                                 if (value = true) {
-                                  bloc.event.add(HomeEventGetCategoriesProducts(
-                                      context, e.id));
+                                  widget.bloc.event.add(
+                                      HomeEventGetCategoriesProducts(
+                                          context, e.id));
                                 } else {
                                   null;
                                 }
@@ -54,7 +60,7 @@ class ProductsTab extends StatelessWidget {
                               title: Text(e.name),
                               children: [
                                 BlocScreenBuilder(
-                                    stream: bloc.stateProducts,
+                                    stream: widget.bloc.stateProducts,
                                     builder: (state) {
                                       if (state is BlocStableState) {
                                         List<ProductsCategoriesEntity>
@@ -64,7 +70,7 @@ class ProductsTab extends StatelessWidget {
                                           children: listProducts
                                               .map((e) => ListTile(
                                                     onTap: () {
-                                                      bloc.event.add(
+                                                      widget.bloc.event.add(
                                                           HomeEventNavigateToProducts(
                                                               context,
                                                               gConsts
@@ -94,12 +100,13 @@ class ProductsTab extends StatelessWidget {
                                               ),
                                               title: const Text('Adicionar'),
                                               onTap: () {
-                                                bloc.event.add(
+                                                widget.bloc.event.add(
                                                     HomeEventNavigateCreateNewProduct(
                                                         context,
                                                         gConsts
                                                             .newProductScreen,
                                                         e));
+                                                setState(() {});
                                               },
                                             )),
                                         );
@@ -115,7 +122,31 @@ class ProductsTab extends StatelessWidget {
                         ))
                     .toList());
           } else if (state is BlocEmptyState) {
-            return Container();
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.shop,
+                  size: 80.0,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 50.0),
+                  child: Text(
+                    'Suas Categorias ainda estao vazias',
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+              ],
+            );
           } else {
             return const SizedBox.shrink();
           }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import '../../domain/usecases/categories_usecase.dart';
 import '../../domain/usecases/products_usecase.dart';
@@ -154,7 +155,6 @@ class HomeBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       _cache = r;
-
       dispatchOrdersState(BlocStableState(r));
     });
   }
@@ -188,8 +188,11 @@ class HomeBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       categoriesList = r;
-
-      dispatchCategoriesState(BlocStableState(categoriesList));
+      if (categoriesList.isNotEmpty) {
+        dispatchCategoriesState(BlocStableState(categoriesList));
+      } else if (categoriesList.isEmpty) {
+        dispatchCategoriesState(BlocEmptyState(categoriesList));
+      }
     });
   }
 
@@ -270,7 +273,11 @@ class HomeBloc with HudMixins {
     }, (r) {
       categoriesList.removeWhere((element) => element.id == id);
 
-      dispatchCategoriesState(BlocStableState(categoriesList));
+      if (categoriesList.isNotEmpty) {
+        dispatchCategoriesState(BlocStableState(categoriesList));
+      } else if (categoriesList.isEmpty) {
+        dispatchCategoriesState(BlocEmptyState(categoriesList));
+      }
       Navigator.pop(context);
     });
   }
