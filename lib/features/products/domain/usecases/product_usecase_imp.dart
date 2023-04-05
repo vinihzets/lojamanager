@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/failure/failure.dart';
 import '../repositories/product_repository.dart';
-import 'product_modify_usecase.dart';
+import 'product_usecase.dart';
 
-class ProductModifyUseCaseImp implements ProductModifyUseCase {
+class ProductUseCaseImp implements ProductUseCase {
   ProductRepository productRepository;
 
-  ProductModifyUseCaseImp(this.productRepository);
+  ProductUseCaseImp(this.productRepository);
 
   @override
   Future<Either<Failure, void>> productModify(
@@ -27,5 +27,11 @@ class ProductModifyUseCaseImp implements ProductModifyUseCase {
       sizes,
       images,
     );
+  }
+
+  @override
+  Future<Either<Failure, void>> productRemove(
+      String idCategory, String productId) {
+    return productRepository.productRemove(idCategory, productId);
   }
 }

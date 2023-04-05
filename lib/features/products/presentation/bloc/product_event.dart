@@ -22,3 +22,11 @@ class ProductEventNavigate implements ProductEvent {
 
   ProductEventNavigate(this.context, this.routeName);
 }
+
+class ProductEventRemove implements ProductEvent {
+  BuildContext context;
+  String idCategory;
+  String productId;
+
+  ProductEventRemove(this.context, this.idCategory, this.productId);
+}

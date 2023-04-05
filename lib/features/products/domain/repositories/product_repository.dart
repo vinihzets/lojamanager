@@ -11,4 +11,6 @@ abstract class ProductRepository {
     List sizes,
     List images,
   );
+  Future<Either<Failure, void>> productRemove(
+      String idCategory, String productId);
 }

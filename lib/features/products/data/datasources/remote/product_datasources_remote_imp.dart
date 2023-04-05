@@ -37,4 +37,21 @@ class ProductDataSourcesRemoteImp implements ProductDataSources {
       return Left(RemoteFailure(message: e.message ?? ''));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> productRemove(
+      String idCategory, String productId) async {
+    try {
+      final removeRequest = await databaseService.db
+          .collection('products')
+          .doc(idCategory)
+          .collection('items')
+          .doc(productId)
+          .delete();
+
+      return Right(removeRequest);
+    } on FirebaseException catch (e) {
+      return Left(RemoteFailure(message: e.message ?? ''));
+    }
+  }
 }

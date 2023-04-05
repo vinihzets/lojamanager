@@ -53,7 +53,12 @@ class _ProductScreenState extends State<ProductScreen> {
                 }
               },
               icon: const Icon(Icons.save)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
+          IconButton(
+              onPressed: () {
+                bloc.event.add(ProductEventRemove(
+                    context, product.idCategory, product.id));
+              },
+              icon: const Icon(Icons.remove)),
         ],
       ),
       body: Form(

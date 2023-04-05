@@ -28,4 +28,10 @@ class ProductRepositoryImp implements ProductRepository {
       images,
     );
   }
+
+  @override
+  Future<Either<Failure, void>> productRemove(
+      String idCategory, String productId) {
+    return productDataSources.productRemove(idCategory, productId);
+  }
 }

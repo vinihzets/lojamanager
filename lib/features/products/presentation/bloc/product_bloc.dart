@@ -1,15 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
 import '../../../../core/archiceture/bloc_state.dart';
 import '../../../../core/utils/hud_mixins.dart';
 import '../../../../main.dart';
-import '../../domain/usecases/product_modify_usecase.dart';
+import '../../domain/usecases/product_usecase.dart';
 import 'product_event.dart';
 
 class ProductBloc with HudMixins {
-  ProductModifyUseCase productModifyUseCase;
+  ProductUseCase productUseCase;
 
   late StreamController<BlocState> _state;
   Stream<BlocState> get state => _state.stream;
@@ -17,7 +18,7 @@ class ProductBloc with HudMixins {
   late StreamController<ProductEvent> _event;
   Sink<ProductEvent> get event => _event.sink;
 
-  ProductBloc(this.productModifyUseCase) {
+  ProductBloc(this.productUseCase) {
     _state = StreamController.broadcast();
     _event = StreamController.broadcast();
 
@@ -28,12 +29,18 @@ class ProductBloc with HudMixins {
     _event.add(event);
   }
 
+  dispatchState(BlocState state) {
+    _state.add(state);
+  }
+
   _mapListenEvent(ProductEvent event) {
     if (event is ProductEventChanges) {
       saveChanges(event.context, event.name, event.description, event.price,
           event.idCategories, event.idProduct, event.sizes, event.images);
     } else if (event is ProductEventNavigate) {
       navigateRemoveUntil(event.context, event.routeName);
+    } else if (event is ProductEventRemove) {
+      removeProduct(event.context, event.idCategory, event.productId);
     }
   }
 
@@ -47,7 +54,7 @@ class ProductBloc with HudMixins {
     List sizes,
     List images,
   ) async {
-    final request = await productModifyUseCase.productModify(
+    final request = await productUseCase.productModify(
       name,
       description,
       price,
@@ -61,6 +68,19 @@ class ProductBloc with HudMixins {
     }, (r) {
       r;
       dispatchEvent(ProductEventNavigate(context, gConsts.homeScreen));
+    });
+  }
+
+  removeProduct(
+      BuildContext context, String idCategory, String productId) async {
+    inspect(productId);
+    inspect(idCategory);
+    final removeRequest =
+        await productUseCase.productRemove(idCategory, productId);
+    removeRequest.fold((l) {
+      showSnack(context, l.message);
+    }, (r) {
+      Navigator.pop(context);
     });
   }
 }
