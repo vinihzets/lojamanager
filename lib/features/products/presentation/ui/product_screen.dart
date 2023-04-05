@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lojamanager/features/products/presentation/widgets/show_dialog_widget.dart';
 
 import '../../../home/domain/entities/products_categories_entity.dart';
 import '../bloc/product_bloc.dart';
@@ -55,8 +56,13 @@ class _ProductScreenState extends State<ProductScreen> {
               icon: const Icon(Icons.save)),
           IconButton(
               onPressed: () {
-                bloc.event.add(ProductEventRemove(
-                    context, product.idCategory, product.id));
+                showDialog(
+                    context: context,
+                    builder: (context) => ShowDialogWidget(
+                          bloc: bloc,
+                          id: product.id,
+                          categoryId: product.idCategory,
+                        ));
               },
               icon: const Icon(Icons.remove)),
         ],
