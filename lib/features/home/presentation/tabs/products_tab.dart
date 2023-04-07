@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import '../../../../core/archiceture/bloc_builder.dart';
 import '../../../../core/archiceture/bloc_state.dart';
@@ -49,6 +51,7 @@ class _ProductsTabState extends State<ProductsTab> {
                                   )),
                               onExpansionChanged: (value) {
                                 if (value = true) {
+                                  inspect(value);
                                   widget.bloc.event.add(
                                       HomeEventGetCategoriesProducts(
                                           context, e.id));
@@ -65,55 +68,12 @@ class _ProductsTabState extends State<ProductsTab> {
                                       if (state is BlocStableState) {
                                         List<ProductsCategoriesEntity>
                                             listProducts = state.data;
-
-                                        return Column(
-                                          children: listProducts
-                                              .map((e) => ListTile(
-                                                    onTap: () {
-                                                      widget.bloc.event.add(
-                                                          HomeEventNavigateToProducts(
-                                                              context,
-                                                              gConsts
-                                                                  .productScreen,
-                                                              e));
-                                                    },
-                                                    leading: CircleAvatar(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                              e.images.first),
-                                                    ),
-                                                    title: Text(e.name),
-                                                    trailing:
-                                                        Text('R\$ ${e.price}'),
-                                                  ))
-                                              .toList()
-                                            ..add(ListTile(
-                                              leading: const CircleAvatar(
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                              title: const Text('Adicionar'),
-                                              onTap: () {
-                                                widget.bloc.event.add(
-                                                    HomeEventNavigateCreateNewProduct(
-                                                        context,
-                                                        gConsts
-                                                            .newProductScreen,
-                                                        e));
-                                                setState(() {});
-                                              },
-                                            )),
-                                        );
-                                      } else if (state is BlocEmptyState) {
-                                        return Container();
+                                        return _buildProducts(context,
+                                            listProducts, widget.bloc, e);
                                       } else {
-                                        return const SizedBox.shrink();
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
                                       }
                                     })
                               ],
@@ -152,4 +112,41 @@ class _ProductsTabState extends State<ProductsTab> {
           }
         });
   }
+}
+
+_buildProducts(
+    BuildContext context,
+    List<ProductsCategoriesEntity> listProducts,
+    HomeBloc bloc,
+    CategoriesEntity e) {
+  return Column(
+    children: listProducts
+        .map((e) => ListTile(
+              onTap: () {
+                bloc.event.add(HomeEventNavigateToProducts(
+                    context, gConsts.productScreen, e));
+              },
+              leading: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                backgroundImage: NetworkImage(e.images.first),
+              ),
+              title: Text(e.name),
+              trailing: Text('R\$ ${e.price}'),
+            ))
+        .toList()
+      ..add(ListTile(
+        leading: const CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: Icon(
+            Icons.add,
+            color: Colors.red,
+          ),
+        ),
+        title: const Text('Adicionar'),
+        onTap: () {
+          bloc.event.add(HomeEventNavigateCreateNewProduct(
+              context, gConsts.newProductScreen, e));
+        },
+      )),
+  );
 }

@@ -202,7 +202,6 @@ class HomeBloc with HudMixins {
       showSnack(context, l.message);
     }, (r) {
       cacheProducts = r;
-
       dispatchProductsState(BlocStableState(cacheProducts));
     });
   }
