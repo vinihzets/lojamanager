@@ -196,7 +196,7 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
           .collection('items')
           .add({
         'description': description,
-        'idCategory': categoryID,
+        'categoryId': categoryID,
         'images': images,
         'name': name,
         'price': price,
@@ -208,9 +208,9 @@ class HomeDataSourcesRemoteImp implements HomeDataSources {
             .doc(categoryID)
             .collection('items')
             .doc(value.id)
-            .update({'id': value.id});
+            .update({'productId': value.id});
 
-        await databaseService.db.collection('news').add({
+        await databaseService.db.collection('news').doc(value.id).set({
           'description': description,
           'categoryId': categoryID,
           'productId': value.id,

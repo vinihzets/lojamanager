@@ -6,6 +6,6 @@ class ProductsCategoriesDto extends ProductsCategoriesEntity {
 
   factory ProductsCategoriesDto.fromJson(Map map) {
     return ProductsCategoriesDto(map['description'], map['images'], map['name'],
-        map['price'], map['sizes'], map['idCategory'], map['id']);
+        map['price'], map['sizes'], map['categoryId'], map['productId']);
   }
 }

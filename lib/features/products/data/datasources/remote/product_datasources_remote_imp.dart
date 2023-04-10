@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../../core/failure/failure.dart';
@@ -49,6 +51,8 @@ class ProductDataSourcesRemoteImp implements ProductDataSources {
           .doc(productId)
           .delete();
 
+      final dbRemove =
+          await databaseService.db.collection('news').doc(productId).delete();
       return Right(removeRequest);
     } on FirebaseException catch (e) {
       return Left(RemoteFailure(message: e.message ?? ''));

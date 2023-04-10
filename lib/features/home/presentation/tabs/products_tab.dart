@@ -51,7 +51,6 @@ class _ProductsTabState extends State<ProductsTab> {
                                   )),
                               onExpansionChanged: (value) {
                                 if (value = true) {
-                                  inspect(value);
                                   widget.bloc.event.add(
                                       HomeEventGetCategoriesProducts(
                                           context, e.id));
